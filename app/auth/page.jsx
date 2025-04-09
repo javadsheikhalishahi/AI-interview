@@ -1,16 +1,27 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/services/supabaseClient";
 import { LinkedinIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-const Page = () => {
+function Login() {
+
+  const signInWithGoogle = async() => {
+    const {error} = await supabase.auth.signInWithOAuth({
+      provider:'google'
+    });
+
+    if(error) {
+      console.error('Error:',error.message)
+    }
+  }
   const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 3000);
   };
 
   return (
@@ -38,7 +49,10 @@ const Page = () => {
             Sign in with your Google account to continue
           </p>
           <Button
-            onClick={handleLogin}
+            onClick={() => {
+              handleLogin();
+              signInWithGoogle();
+            }}
             disabled={loading}
             aria-label="Login with Google"
             className={`w-full flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow ${
@@ -91,4 +105,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Login;
