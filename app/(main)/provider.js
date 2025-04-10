@@ -1,10 +1,16 @@
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "./_components/AppSidebar";
 
 function DashboardProvider({ children }) {
   return (
     <div>
-        <DashboardProvider>
-            {children}
-        </DashboardProvider>
+        <SidebarProvider>
+            <AppSidebar />
+            <div>
+                <SidebarTrigger  />
+               {children} 
+            </div>
+        </SidebarProvider>
     </div>
   )
 }

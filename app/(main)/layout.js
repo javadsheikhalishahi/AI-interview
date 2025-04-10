@@ -1,7 +1,12 @@
+import DashboardProvider from "./provider";
 
 function DashboardLayout ({ children }) {
   return (
-    <div>{children}</div>
+    <div>
+        <DashboardProvider>
+            {children}
+        </DashboardProvider>
+    </div>
   )
 }
 
