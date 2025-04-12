@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { SideBarOptions } from "@/services/Constants";
 import clsx from "clsx";
@@ -22,7 +22,7 @@ export function AppSidebar() {
   const path = usePathname();
 
   return (
-    <Sidebar>
+    <Sidebar className="transform duration-200">
       <SidebarHeader className="flex p-1 items-center bg-gradient-to-r from-blue-50 via-sky-50 to-cyan-50">
         <Image
           src="/Logo.png"

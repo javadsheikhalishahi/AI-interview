@@ -229,6 +229,31 @@
   color: transparent;
 }
 
+/* Animation for SidebarTrigger button */
+.sidebar-trigger-button {
+  transition: transform 0.7s ease-in-out;
+}
+
+.sidebar-trigger-button.open {
+  transform: rotate(180deg); /* Rotate the button when the sidebar is open */
+}
+
+/* Sidebar opening/closing animation */
+.sidebar {
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Open sidebar */
+  opacity: 1;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%); /* Close sidebar */
+  opacity: 0;
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
