@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft } from "lucide-react";
@@ -7,29 +7,40 @@ import { useState } from "react";
 import { toast } from "sonner";
 import Welcome from "../_components/Welcome";
 import FormContainer from "./_components/FormContainer";
+import InterviewLink from "./_components/InterviewLink";
 import QuestionList from "./_components/QuestionList";
 
 function CreateInterview() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState();
+  const [interviewId, setInterviewId] = useState();
   const onHandleInputChange = (field, value) => {
-    setFormData(prev => ({
-        ...prev,
-        [field]: value
-    }))
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
 
     console.log("FormData", formData);
-  }
+  };
 
   const onGoToNext = () => {
-    if(!formData?.JobPosition || !formData?.JobDescription || !formData?.InterviewDuration || !formData.type)
-      {
-        toast('Please fill out all the required fields!')
-        return;
-      }
-      setStep(step + 1);
-  }
+    if (
+      !formData?.JobPosition ||
+      !formData?.JobDescription ||
+      !formData?.InterviewDuration ||
+      !formData.type
+    ) {
+      toast("Please fill out all the required fields!");
+      return;
+    }
+    setStep(step + 1);
+  };
+
+  const onCreateLink = (interview_id) => {
+    setInterviewId(interview_id);
+    setStep(step + 1);
+  };
 
   return (
     <div>
@@ -49,9 +60,19 @@ function CreateInterview() {
 
         {/* Smaller Progress Bar */}
         <Progress value={step * 33.33} className="h-2 mt-4 max-w-7xl" />
-        { step == 1 ? <FormContainer onHandleInputChange={onHandleInputChange}
-        GoToNext={() => onGoToNext()} />
-        : step == 2 ? <QuestionList formData={formData} /> : null}
+        {step == 1 ? (
+          <FormContainer
+            onHandleInputChange={onHandleInputChange}
+            GoToNext={() => onGoToNext()}
+          />
+        ) : step == 2 ? (
+          <QuestionList
+            formData={formData}
+            onCreateLink={(interview_id) => onCreateLink(interview_id)}
+          />
+        ) : step == 3 ? (
+          <InterviewLink interview_id={interviewId} formData={formData} />
+        ) : null}
       </div>
     </div>
   );

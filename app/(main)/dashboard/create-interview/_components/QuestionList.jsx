@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 
-function QuestionList({ formData }) {
+function QuestionList({ formData, onCreateLink }) {
   const [loading, setLoading] = useState(true);
   const [questionList, setQuestionList] = useState();
   const { user } = useUser();
   const [saveLoading, setSaveLoading] = useState(false);
+  
   useEffect(() => {
     if (formData) {
       GenerateQuestionList();
@@ -52,6 +53,9 @@ function QuestionList({ formData }) {
       .select();
 
     setSaveLoading(false);
+
+    onCreateLink(interview_id);
+
   };
 
   return (
@@ -112,7 +116,7 @@ function QuestionList({ formData }) {
            hover:from-blue-600 hover:to-indigo-700 rounded-lg transition duration-300 ease-in-out transform 
            hover:scale-105 cursor-pointer animate-buttonEntrance1 px-4 py-2 shadow-gray-700 shadow-md"
         >
-          {saveLoading && <Loader2 className="animate-spin" />} Finish
+          {saveLoading && <Loader2 className="animate-spin" />} Create Interview Link & Finish
           <span className="w-5 h-5 animate-bounce">🏅</span>
         </Button>
       </div>
