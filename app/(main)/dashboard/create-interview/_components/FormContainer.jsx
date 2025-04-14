@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -98,10 +98,10 @@ const jobSuggestions = [
   "Solutions Architect",
 ];
 
-function FormContainer({ onHandleInputChange }) {
+function FormContainer({ onHandleInputChange, GoToNext }) {
   const [isLoading, setIsLoading] = useState(false);
   const [interviewType, setInterviewType] = useState([]);
-  const [jobPositionInput, setJobPositionInput] = useState("");
+  const [JobPositionInput, setJobPositionInput] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [description, setDescription] = useState("");
 
@@ -131,7 +131,7 @@ function FormContainer({ onHandleInputChange }) {
   const handleJobPositionChange = (event) => {
     const value = event.target.value;
     setJobPositionInput(value);
-    onHandleInputChange("jobPosition", value);
+    onHandleInputChange("JobPosition", value);
     if (value.length > 0) {
       const suggestions = jobSuggestions.filter((job) =>
         job.toLowerCase().includes(value.toLowerCase())
@@ -159,7 +159,7 @@ useEffect(() => {
         <Input
           placeholder="Example: Full-Stack Developer"
           className="mt-2"
-          value={jobPositionInput}
+          value={JobPositionInput}
           onChange={handleJobPositionChange}
         />
         {filteredSuggestions.length > 0 && (
@@ -169,7 +169,7 @@ useEffect(() => {
                 key={index}
                 onClick={() => {
                   setJobPositionInput(suggestion);
-                  onHandleInputChange("jobPosition", suggestion);
+                  onHandleInputChange("JobPosition", suggestion);
                   setFilteredSuggestions([]);
                 }}
                 className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
@@ -252,7 +252,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="flex justify-end mt-7">
+      <div className="flex justify-end mt-7" onClick={() => GoToNext()}>
       {showButton && (
         <Button
           onClick={handleClick}

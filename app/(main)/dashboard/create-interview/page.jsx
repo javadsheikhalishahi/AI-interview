@@ -4,8 +4,10 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import Welcome from "../_components/Welcome";
 import FormContainer from "./_components/FormContainer";
+import QuestionList from "./_components/QuestionList";
 
 function CreateInterview() {
   const router = useRouter();
@@ -16,9 +18,18 @@ function CreateInterview() {
         ...prev,
         [field]: value
     }))
+
+    console.log("FormData", formData);
   }
 
-  console.log("FormData", formData);
+  const onGoToNext = () => {
+    if(!formData?.JobPosition || !formData?.JobDescription || !formData?.InterviewDuration || !formData.type)
+      {
+        toast('Please fill out all the required fields!')
+        return;
+      }
+      setStep(step + 1);
+  }
 
   return (
     <div>
@@ -37,8 +48,10 @@ function CreateInterview() {
         </div>
 
         {/* Smaller Progress Bar */}
-        <Progress value={step * 25} className="h-2 mt-4 max-w-7xl" />
-        <FormContainer onHandleInputChange={onHandleInputChange} />
+        <Progress value={step * 33.33} className="h-2 mt-4 max-w-7xl" />
+        { step == 1 ? <FormContainer onHandleInputChange={onHandleInputChange}
+        GoToNext={() => onGoToNext()} />
+        : step == 2 ? <QuestionList formData={formData} /> : null}
       </div>
     </div>
   );
