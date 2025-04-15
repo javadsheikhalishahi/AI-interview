@@ -4,27 +4,32 @@ export const SideBarOptions = [
     {
         name: 'Dashboard',
         icon: LayoutDashboardIcon,
-        path: '/dashboard'
+        path: '/dashboard',
+        className:'transition-transform duration-200 ease-in-out hover:animate-pulse'
     },
     {
         name: 'Planned Interview',
         icon: CalendarDays,
-        path: '/scheduled-interview'
+        path: '/scheduled-interview',
+        className:'transition-transform duration-200 ease-in-out hover:rotate-12'
     },
     {
         name: 'All Interview',
         icon: ListChecks,
-        path: '/all-interview'
+        path: '/all-interview',
+        className:'transition-transform duration-200 ease-in-out hover:rotate-12'
     },
     {
         name: 'Billing',
         icon: Wallet2,
-        path: '/billing'
+        path: '/billing',
+        className:'transition-transform duration-200 ease-in-out hover:animate-bounce'
     },
     {
         name: 'Settings',
         icon: Settings,
-        path: '/settings'
+        path: '/settings',
+        className: 'transition-transform duration-200 ease-in-out hover:animate-spin'
     },
 ]
 

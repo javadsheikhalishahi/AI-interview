@@ -31,9 +31,11 @@ export function AppSidebar() {
           height={100}
           className="w-20 object-contain scale-200"
         />
-        <Button className="w-[210px] flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow">
-          <Plus /> Create New Interview
-        </Button>
+        <Link href="/dashboard/create-interview" passHref>
+  <Button className="w-[210px] flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow">
+    <Plus /> Create New Interview
+  </Button>
+</Link>
       </SidebarHeader>
 
       <SidebarContent className="bg-gradient-to-r from-blue-50 via-sky-50 to-cyan-50 pt-5">
@@ -51,8 +53,9 @@ export function AppSidebar() {
                   <Link href={option.path} className="flex items-center gap-2">
                     <option.icon
                       className={clsx(
-                        "transition-transform duration-200 ease-in-out hover:rotate-12",
-                        path === option.path && "text-blue-500"
+                        "transition-transform duration-200 ease-in-out",
+                        path === option.path && "text-blue-500",
+                        option.className
                       )}
                     />
                     <span

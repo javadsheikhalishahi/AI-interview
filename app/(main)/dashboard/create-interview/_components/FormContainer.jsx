@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { InterviewType } from "@/services/Constants";
 import { ArrowRightFromLine, Check, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const jobSuggestions = [
   // General Development
@@ -152,6 +153,17 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, []);
 
+const handlePaste = (e) => {
+  const paste = e.clipboardData.getData("text");
+  const totalLength = description.length + paste.length;
+
+  if (totalLength > 3000) {
+    e.preventDefault();
+    // Optional: Show a temporary alert or use a toast library here
+    toast.error("📝 Oops! Max allowed is 3000 characters. Please shorten it.");
+  }
+};
+
   return (
     <div className="bg-white border border-gray-300 shadow-2xl max-w-7xl rounded-2xl p-5 mt-5 animate-slideInRight">
       <div className="animate-slideInRight1">
@@ -183,17 +195,29 @@ useEffect(() => {
       <div className="mt-5 animate-slideInRight2">
         <h2 className="text-sm font-medium">Job Description</h2>
         <Textarea
-          placeholder="Enter details job description"
-          className="h-[200px] mt-2"
-          value={description}
-          onChange={(event) => {
-            setDescription(event.target.value);
-            onHandleInputChange("JobDescription", event.target.value);
-          }}
-        />
-        <p className="text-xs text-muted-foreground mt-1 text-right">
-          {description.length} / 500 characters
-        </p>
+  placeholder="Enter details job description"
+  className={cn(
+    "h-[200px] max-w-3xl mt-2",
+    description.length > 3000 && "border-rose-500"
+  )}
+  value={description}
+  onChange={(event) => {
+    const value = event.target.value;
+    if (value.length <= 3000) {
+      setDescription(value);
+      onHandleInputChange("JobDescription", value);
+    }
+  }}
+  onPaste={handlePaste}
+/>
+<p
+  className={cn(
+    "text-xs mt-1 text-right",
+    description.length > 3000 ? "text-rose-500 font-semibold" : "text-muted-foreground"
+  )}
+>
+  {description.length} / 3000 characters
+</p>
       </div>
       <div className="mt-5 animate-slideInRight3">
         <h2 className="text-sm font-medium">Interview Duration</h2>
