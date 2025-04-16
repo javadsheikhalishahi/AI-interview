@@ -1,6 +1,5 @@
 "use client";
 
-import { Progress } from "@/components/ui/progress";
 import {
   ArrowLeft,
   MessageCircleQuestion,
@@ -54,33 +53,110 @@ function CreateInterview() {
       <Welcome />
 
       {/* Header and progress container */}
-      <div className="mt-4 px-5 sm:px-10 md:px-24 lg:px-44 xl:px-96">
-        <div className="flex items-center gap-4">
-          <ArrowLeft
+      <div className="mt-3 px-5 sm:px-10 md:px-24 lg:px-44 xl:px-96">
+        <div className="flex items-center gap-12 sm:gap-24 md:gap-16 lg:gap-52 mb-4 animate-fadeInUp">
+          <button
             onClick={() => router.back()}
-            className="cursor-pointer hover:scale-125 hover:text-blue-600 transition-transform"
-          />
-          <h2 className="font-bold sm:text-lg md:text-xl lg:text-2xl">
+            className="p-2 cursor-pointer rounded-2xl bg-blue-100 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <ArrowLeft className="w-5 h-5 text-blue-500" />
+          </button>
+          <h2 className=" flex flex-col text-sm sm:text-xl md:text-lg lg:text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent tracking-tight drop-shadow-sm">
             Create New Interview
           </h2>
         </div>
 
-        {/* Step Indicator */}
-        <div className="flex items-center gap-2 mt-3 text-sm text-muted-foreground font-medium">
-          {step === 1 && <Pencil className="w-6 h-6 text-blue-500" />}
-          {step === 2 && (
-            <MessageCircleQuestion className="w-6 h-6 text-purple-500" />
-          )}
-          {step === 3 && <ShieldCheck className="w-6 h-6 text-emerald-500" />}
-          <span>Step {step} of 3</span>
+        <div className="w-full max-w-4xl mx-auto px-1 mt-3">
+          <div className="flex justify-between items-center relative">
+            {[1, 2, 3].map((n, idx) => {
+              const isActive = step === n;
+              const isComplete = step > n;
+              const isReached = step >= n;
+
+              const Icon = [Pencil, MessageCircleQuestion, ShieldCheck][idx];
+              const label = ["Details", "Questions", "Finalize"][idx];
+
+              const colors = {
+                1: {
+                  gradient: "from-blue-500 to-indigo-500",
+                  text: "text-blue-600",
+                  bg: "bg-blue-100",
+                  border: "border-blue-500",
+                },
+                2: {
+                  gradient: "from-purple-500 to-fuchsia-500",
+                  text: "text-purple-600",
+                  bg: "bg-purple-100",
+                  border: "border-purple-500",
+                },
+                3: {
+                  gradient: "from-green-500 to-emerald-500",
+                  text: "text-emerald-600",
+                  bg: "bg-emerald-100",
+                  border: "border-emerald-500",
+                },
+              };
+
+              const currentColors = colors[n];
+
+              return (
+                <div
+                  key={n}
+                  className="flex-1 flex flex-col items-center relative"
+                >
+                  {/* Connecting Line */}
+                  {idx !== 0 && (
+                    <div className="absolute -left-1/2 top-5 w-full h-1 z-0">
+                      <div
+                        className={`h-full transition-all rounded-full duration-700 ${
+                          step >= n
+                            ? `bg-gradient-to-r ${colors[n].gradient}`
+                            : "bg-muted"
+                        }`}
+                      />
+                    </div>
+                  )}
+
+                  {/* Icon Circle */}
+                  <div
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border-2 shadow-md z-10 transition-all duration-300 ${
+                      isActive
+                        ? `bg-gradient-to-br ${currentColors.gradient} text-white border-transparent animate-bounce`
+                        : isComplete || isReached
+                        ? `${currentColors.bg} ${currentColors.border} ${currentColors.text}`
+                        : "bg-muted text-muted-foreground border-muted"
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </div>
+
+                  {/* Step Number */}
+                  <span
+                    className={`mt-1 text-xs font-bold ${
+                      isActive || isReached
+                        ? currentColors.text
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    Step {n}
+                  </span>
+
+                  {/* Step Label */}
+                  <span
+                    className={`text-sm ${
+                      isActive
+                        ? "text-foreground font-semibold"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Smaller Progress Bar */}
-        <Progress
-          value={step * 33.33}
-          className="h-2 mt-4 max-w-7xl rounded-full overflow-hidden shadow-xl transition-all duration-500
-  [&>*]:bg-gradient-to-r [&>*]:from-blue-500 [&>*]:to-indigo-600 animate-pulseGlow"
-        />
         {step == 1 ? (
           <FormContainer
             onHandleInputChange={onHandleInputChange}

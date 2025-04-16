@@ -57,7 +57,7 @@ const handleReset = () => {
 };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-5 px-4 sm:px-6 md:px-10">
+    <div className="flex flex-col items-center justify-center mt-0 px-4 sm:px-6 md:px-10">
       <Image
         src={"/Check.png"}
         alt="check"

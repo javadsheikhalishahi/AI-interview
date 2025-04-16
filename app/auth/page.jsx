@@ -9,24 +9,23 @@ import { useState } from "react";
 
 function Login() {
 
-  const signInWithGoogle = async() => {
-    const {error} = await supabase.auth.signInWithOAuth({
-      provider:'google'
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`,
+      },
     });
-
-    if(error) {
-      console.error('Error:',error.message)
+  
+    if (error) {
+      console.error('Error:', error.message);
     }
-  }
+  };
+  
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 3000);
-    router.push('/dashboard'); 
-  };
-
+  
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-50 via-purple-100 to-pink-100">
       <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-10 shadow-2xl w-full max-w-md animate-slideInRight">
@@ -53,7 +52,6 @@ function Login() {
           </p>
           <Button
             onClick={() => {
-              handleLogin();
               signInWithGoogle();
             }}
             disabled={loading}

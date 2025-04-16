@@ -42,13 +42,20 @@ function Welcome() {
               height={40}
               className="rounded-full shadow-md border border-gray-200"
             />
-            {/* Sign Out Icon Button */}
-            <button
-              onClick={handleSignOut}
-              className="p-2 rounded-full  transition-colors cursor-pointer"
-            >
-              <LogOut className="w-6 h-6 text-rose-600 hover:scale-110 hover:animate-bounce" />
-            </button>
+           <div className="relative group">
+  <button
+    onClick={handleSignOut}
+    className="p-2 rounded-full transition-colors cursor-pointer"
+    aria-label="Signout"
+  >
+    <LogOut className="w-5 h-5 text-rose-600 hover:scale-110 transition-transform" />
+  </button>
+
+  {/* Tooltip */}
+  <div className="absolute -top-9 left-1/2 -translate-x-1/2 px-3 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+    Sign Out
+  </div>
+</div>
           </div>
         )}
       </div>
