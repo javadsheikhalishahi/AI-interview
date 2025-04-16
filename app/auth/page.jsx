@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/services/supabaseClient";
 import { LinkedinIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function Login() {
@@ -18,10 +19,12 @@ function Login() {
     }
   }
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleLogin = () => {
     setLoading(true);
     setTimeout(() => setLoading(false), 3000);
+    router.push('/dashboard'); 
   };
 
   return (

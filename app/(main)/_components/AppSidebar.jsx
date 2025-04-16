@@ -1,5 +1,6 @@
-"use client";
+'use client';
 
+import { useUser } from "@/app/provider";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -12,14 +13,22 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { SideBarOptions } from "@/services/Constants";
+import { supabase } from "@/services/supabaseClient";
 import clsx from "clsx";
-import { Plus } from "lucide-react";
+import { LogOut, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export function AppSidebar() {
   const path = usePathname();
+  const { user } = useUser();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+  };
 
   return (
     <Sidebar className="transform duration-200">
@@ -32,10 +41,10 @@ export function AppSidebar() {
           className="w-20 object-contain scale-200"
         />
         <Link href="/dashboard/create-interview" passHref>
-  <Button className="w-[210px] flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow">
-    <Plus /> Create New Interview
-  </Button>
-</Link>
+          <Button className="w-[210px] flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow">
+            <Plus /> Create New Interview
+          </Button>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent className="bg-gradient-to-r from-blue-50 via-sky-50 to-cyan-50 pt-5">
@@ -74,6 +83,19 @@ export function AppSidebar() {
             ))}
           </SidebarMenu>
         </SidebarGroup>
+
+        {/* User Avatar & Sign Out Button */}
+        {user && (
+          <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 w-full flex justify-center">
+            <button
+              onClick={handleSignOut}
+              className="flex w-[150px] items-center justify-center gap-2 text-xs font-bold bg-rose-600 text-white  px-4 py-2 border border-red-700 rounded-lg transition-all shadow-md shadow-gray-900 hover:shadow-lg hover:scale-110 cursor-pointer animate-buttonEntrance1"
+            >
+              <LogOut className="w-4 h-4" />
+              Sign Out
+            </button>
+          </div>
+        )}
       </SidebarContent>
 
       <SidebarFooter className="bg-gradient-to-r from-blue-50 via-sky-50 to-cyan-50 py-5 px-4 border-t border-blue-100">
