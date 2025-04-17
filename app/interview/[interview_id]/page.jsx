@@ -1,0 +1,240 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/services/supabaseClient.js";
+import {
+  ArrowLeft,
+  BoomBox,
+  Clock2,
+  Command,
+  IdCard,
+  Info,
+  ListCollapseIcon,
+  Video,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+function Interview() {
+  const [interviewData, setInterviewData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [questionList, setQuestionList] = useState([]);
+  const { interview_id } = useParams();
+  const [userName, setUserName] = useState();
+  const [showJobDescModal, setShowJobDescModal] = useState(false);
+
+  useEffect(() => {
+    if (!interview_id) return;
+
+    const fetchInterviewData = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("interviews")
+        .select(
+          "interview_id, InterviewDuration, JobPosition, questionList, type, JobDescription"
+        )
+        .eq("interview_id", interview_id)
+        .single();
+
+      if (error) {
+        console.error("Error fetching interview data:", error);
+        setError(error.message);
+      } else {
+        setInterviewData(data);
+        setQuestionList(data.questionList || []);
+      }
+      setLoading(false);
+    };
+
+    fetchInterviewData();
+  }, [interview_id]);
+
+  // Separate function for joining interview
+  const onJoinInterview = async () => {
+    if (!interview_id) return;
+
+    let { data: Interviews, error } = await supabase
+      .from("interviews")
+      .select("*")
+      .eq("interview_id", interview_id);
+
+    if (error) {
+      console.error("Error fetching interview:", error);
+    } else {
+      console.log(Interviews[0]);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50 z-50">
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="relative w-28 h-28 border-8 border-t-4 border-b-2 border-r-8 border-blue-500 rounded-full shadow-lg animate-spin"></div>
+          <p className="text-gray-800 font-bold text-xl animate-pulse mt-3">
+            Loading...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error)
+    return <p className="text-red-600 text-center mt-5">Error: {error}</p>;
+
+  return (
+    <div className="px-6 sm:px-12 md:px-20 lg:px-32 xl:px-48 mt-5">
+      <div className="flex flex-col bg-white items-center justify-center p-8 sm:p-10 md:p-12 border rounded-2xl shadow-xl animate-slideInRight">
+        {/* Larger Logo */}
+        <Image
+          src="/Logo1.png"
+          alt="LogoInterview"
+          width={120}
+          height={120}
+          className="w-24 sm:w-28 md:w-32 absolute top-0 left-1/2 transform -translate-x-1/2 animate-slideInRight1"
+        />
+        <h2 className="mt-20 text-lg sm:text-xl md:text-2xl font-semibold text-center text-gray-800 animate-slideInRight2">
+          Smart Interviews Powered by AI
+        </h2>
+
+        {/* Slightly Smaller Interviews Illustration */}
+        <Image
+          src="/interviews.svg"
+          alt="interviews"
+          width={500}
+          height={500}
+          className="w-[70%] sm:w-[60%] md:w-[55%] lg:w-[40%] my-1 mt-2 animate-slideInRight3"
+        />
+
+        {interviewData && (
+          <div className="mt-4 text-center space-y-3 animate-slideInRight4">
+            <h2 className="font-semibold text-base sm:text-lg md:text-xl lg:text-xl text-gray-900">
+              {interviewData.JobPosition}
+            </h2>
+
+            <h3 className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500">
+              <IdCard className="h-4 w-4" /> {interviewData.interview_id}
+            </h3>
+
+            <h3 className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500 mt-2">
+              <Clock2 className="h-4 w-4 text-yellow-400" />{" "}
+              {interviewData.InterviewDuration}
+            </h3>
+
+            <h2 className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500 mt-2">
+              <ListCollapseIcon className="h-4 w-4 text-purple-500" />{" "}
+              {questionList.length} Questions
+            </h2>
+
+            <h2 className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500 mt-2">
+              <Command className="h-4 w-4 text-emerald-500" />
+              {Array.isArray(interviewData.type)
+                ? interviewData.type.join(", ")
+                : JSON.parse(interviewData.type || "[]").join(", ")}
+            </h2>
+
+            <div
+  onClick={() => setShowJobDescModal(true)}
+  className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500 mt-2 cursor-pointer hover:text-blue-600 transition-all duration-300"
+>
+  <BoomBox className="h-4 w-4 text-blue-500" />
+  <span className="font-medium">Job Description</span>
+  <ArrowLeft className="w-4 h-4 text-black arrow " />
+  <span className="text-sm pr-5 text-gray-500 cursor-default select-none">Click to see</span>
+</div>
+
+
+
+            <div className="w-full mt-6">
+              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-700 mb-2">
+                Enter your Full Name
+              </h3>
+              <Input
+                placeholder="e.g. Joe Anderson"
+                className="w-full p-3 border rounded-lg text-gray-800"
+                onChange={(event) => setUserName(event.target.value)}
+              />
+            </div>
+
+            <div className="flex flex-col bg-blue-50 gap-4 p-4 rounded-lg mt-6 shadow-md">
+              <div>
+                <h3 className="text-base sm:text-lg font-semibold text-blue-700 flex items-center justify-center gap-2">
+                  <Info className="w-4 h-4 text-blue-600" />
+                  Things to Know Before You Begin
+                </h3>
+                <ul className="list-inside text-sm text-blue-600">
+                  <li>
+                    - Ensure your camera and microphone are working properly
+                  </li>
+                  <li>
+                    - Use a reliable internet connection for the best experience
+                  </li>
+                  <li>
+                    - A calm setting will create a professional atmosphere
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <p className="text-sm sm:text-base text-gray-600 font-medium text-center mt-6 italic">
+              A great interview starts with confidence, preparation, and a calm
+              mind.
+            </p>
+            <Button
+              className="w-full flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow mt-6"
+              disabled={loading || !userName}
+              onClick={() => onJoinInterview()}
+            >
+              <Video /> Join Interview
+            </Button>
+          </div>
+        )}
+      </div>
+
+      <div className="w-full text-center text-sm text-gray-500 mt-20 pb-8">
+        © 2025{" "}
+        <Link
+          href="https://www.linkedin.com/in/javad-sheikhalishahi-60094629b/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 font-semibold hover:text-indigo-600 transition-all duration-200 underline underline-offset-4 decoration-blue-300 hover:decoration-indigo-400"
+        >
+          Javad.Inc
+        </Link>{" "}
+        · All rights reserved.
+      </div>
+      {showJobDescModal && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+          <div className="bg-white w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-xl animate-fadeIn overflow-hidden flex flex-col">
+            {/* Header with Close Button */}
+            <div className="flex items-center justify-between p-4 border-b">
+              <h2 className="text-lg font-semibold text-gray-800">
+                Job Description
+              </h2>
+              <button
+                onClick={() => setShowJobDescModal(false)}
+                className="text-gray-500 hover:text-gray-700 transition"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="p-4 overflow-y-auto text-gray-600 text-sm whitespace-pre-line">
+              {interviewData.JobDescription}
+            </div>
+
+            {/* Footer (optional) */}
+            <div className="p-4 border-t flex justify-end">
+              <Button onClick={() => setShowJobDescModal(false)}>Close</Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Interview;

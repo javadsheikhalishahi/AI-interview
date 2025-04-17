@@ -385,7 +385,26 @@
 .animate-progressStripe {
   animation: progressStripe 2s linear infinite;
 }
+ 
+.glow {
+  box-shadow: 0 0 15px 5px rgba(0, 0, 255, 0.7);
+}
 
+.arrow {
+  animation: forwardBack 1s ease-in-out infinite;
+}
+
+@keyframes forwardBack {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 
 @layer base {
   * {
