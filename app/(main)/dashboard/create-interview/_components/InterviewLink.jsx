@@ -57,15 +57,15 @@ const handleReset = () => {
 };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-0 px-4 sm:px-6 md:px-10">
+    <div className="flex flex-col items-center justify-center mt-0 px-4 sm:px-6 md:px-10 animate-FadeIn">
       <Image
         src={"/Check.png"}
         alt="check"
         width={100}
         height={100}
-        className="w-[50px] h-[50px] animate-bounce scale-150"
+        className="w-[50px] h-[50px] animate-pulse scale-100 "
       />
-      <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-gray-800 mt-3 leading-snug">
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-gray-800 mt-3 leading-snug animate-slideInRight1">
         🎉We’ve Cooked Up Your AI Interview! It`s Ready!!
       </h2>
       <p className="text-center mt-3 text-gray-500 font-semibold text-base sm:text-lg max-w-xl mx-auto">
@@ -194,7 +194,7 @@ const handleReset = () => {
         <Link href={"/dashboard"} className="w-full sm:w-auto">
           <Button
             variant={"outline"}
-            className="w-full shadow-xl cursor-pointer hover:bg-black hover:text-white"
+            className="w-full shadow-xl cursor-pointer hover:bg-black hover:text-white animate-buttonEntrance1"
           >
             {" "}
             <Undo2 className="animate-pulse" /> Back to Dashboard{" "}

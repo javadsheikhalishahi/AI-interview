@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { InterviewDataContext } from "@/context/InterviewDataContext";
 import { supabase } from "@/services/supabaseClient.js";
 import {
   ArrowLeft,
@@ -11,12 +12,13 @@ import {
   IdCard,
   Info,
   ListCollapseIcon,
+  Loader2,
   Video,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 function Interview() {
   const [interviewData, setInterviewData] = useState(null);
@@ -26,7 +28,8 @@ function Interview() {
   const { interview_id } = useParams();
   const [userName, setUserName] = useState();
   const [showJobDescModal, setShowJobDescModal] = useState(false);
-
+  const { interviewInfo, setInterviewInfo } = useContext(InterviewDataContext);
+  const router = useRouter();
   useEffect(() => {
     if (!interview_id) return;
 
@@ -47,7 +50,9 @@ function Interview() {
         setInterviewData(data);
         setQuestionList(data.questionList || []);
       }
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     };
 
     fetchInterviewData();
@@ -56,6 +61,7 @@ function Interview() {
   // Separate function for joining interview
   const onJoinInterview = async () => {
     if (!interview_id) return;
+    setLoading(true);
 
     let { data: Interviews, error } = await supabase
       .from("interviews")
@@ -66,18 +72,48 @@ function Interview() {
       console.error("Error fetching interview:", error);
     } else {
       console.log(Interviews[0]);
+      setInterviewInfo({
+        userName: userName,
+        interviewData: Interviews[0],
+      });
+      router.push("/interview/" + interview_id + "/start");
+      setLoading(false);
     }
   };
 
   if (loading) {
     return (
       <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50 z-50">
-        <div className="flex flex-col items-center justify-center space-y-6">
-          <div className="relative w-28 h-28 border-8 border-t-4 border-b-2 border-r-8 border-blue-500 rounded-full shadow-lg animate-spin"></div>
-          <p className="text-gray-800 font-bold text-xl animate-pulse mt-3">
-            Loading...
-          </p>
-        </div>
+        <svg className="sun" width="200" height="200" viewBox="0 0 200 200">
+          <defs>
+            <linearGradient id="linerGradient">
+              <stop className="stop1" offset="0" />
+              <stop className="stop2" offset="1" />
+            </linearGradient>
+            <linearGradient
+              y2="160"
+              x2="160"
+              y1="40"
+              x1="40"
+              gradientUnits="userSpaceOnUse"
+              id="gradient"
+              href="#linerGradient"
+            />
+          </defs>
+          <path
+            className="halvan"
+            d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64"
+          />
+          <circle className="strecken" cx="100" cy="100" r="64" />
+        </svg>
+
+        <svg className="skugga" width="200" height="200" viewBox="0 0 200 200">
+          <path
+            className="halvan"
+            d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64"
+          />
+          <circle className="strecken" cx="100" cy="100" r="64" />
+        </svg>
       </div>
     );
   }
@@ -107,6 +143,7 @@ function Interview() {
           width={500}
           height={500}
           className="w-[70%] sm:w-[60%] md:w-[55%] lg:w-[40%] my-1 mt-2 animate-slideInRight3"
+          priority
         />
 
         {interviewData && (
@@ -137,16 +174,16 @@ function Interview() {
             </h2>
 
             <div
-  onClick={() => setShowJobDescModal(true)}
-  className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500 mt-2 cursor-pointer hover:text-blue-600 transition-all duration-300"
->
-  <BoomBox className="h-4 w-4 text-blue-500" />
-  <span className="font-medium">Job Description</span>
-  <ArrowLeft className="w-4 h-4 text-black arrow " />
-  <span className="text-sm pr-5 text-gray-500 cursor-default select-none">Click to see</span>
-</div>
-
-
+              onClick={() => setShowJobDescModal(true)}
+              className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg lg:text-sm text-gray-500 mt-2 cursor-pointer hover:text-blue-600 transition-all duration-300"
+            >
+              <BoomBox className="h-4 w-4 text-blue-500" />
+              <span className="font-medium">Job Description</span>
+              <ArrowLeft className="w-4 h-4 text-black arrow " />
+              <span className="text-sm pr-5 text-gray-500 cursor-default select-none">
+                Click to see
+              </span>
+            </div>
 
             <div className="w-full mt-6">
               <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-700 mb-2">
@@ -187,7 +224,7 @@ function Interview() {
               disabled={loading || !userName}
               onClick={() => onJoinInterview()}
             >
-              <Video /> Join Interview
+              <Video /> {loading && <Loader2 />} Join Interview
             </Button>
           </div>
         )}

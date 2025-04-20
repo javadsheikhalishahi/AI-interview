@@ -39,6 +39,7 @@ export function AppSidebar() {
           width={200}
           height={100}
           className="w-20 object-contain scale-200"
+          priority
         />
         <Link href="/dashboard/create-interview" passHref>
           <Button className="w-[210px] flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow">
