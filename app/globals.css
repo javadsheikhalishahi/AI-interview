@@ -450,6 +450,29 @@
   }
 }
 
+@keyframes wave1 {
+  0%, 100% { height: 8px; }
+  50% { height: 24px; }
+}
+@keyframes wave2 {
+  0%, 100% { height: 14px; }
+  50% { height: 32px; }
+}
+@keyframes wave3 {
+  0%, 100% { height: 20px; }
+  50% { height: 40px; }
+}
+
+.animate-wave1 {
+  animation: wave1 1s infinite ease-in-out;
+}
+.animate-wave2 {
+  animation: wave2 1.2s infinite ease-in-out;
+}
+.animate-wave3 {
+  animation: wave3 1.4s infinite ease-in-out;
+}
+
 
 @layer base {
   * {

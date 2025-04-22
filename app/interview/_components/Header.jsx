@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 function Header() {
   return (
@@ -8,4 +8,4 @@ function Header() {
   )
 }
 
-export default Header
+export default Header;

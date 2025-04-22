@@ -27,6 +27,7 @@ function Interview() {
   const [questionList, setQuestionList] = useState([]);
   const { interview_id } = useParams();
   const [userName, setUserName] = useState();
+  const [userEmail, setUserEmail] = useState();
   const [showJobDescModal, setShowJobDescModal] = useState(false);
   const { interviewInfo, setInterviewInfo } = useContext(InterviewDataContext);
   const router = useRouter();
@@ -74,6 +75,7 @@ function Interview() {
       console.log(Interviews[0]);
       setInterviewInfo({
         userName: userName,
+        userEmail: userEmail,
         interviewData: Interviews[0],
       });
       router.push("/interview/" + interview_id + "/start");
@@ -83,7 +85,7 @@ function Interview() {
 
   if (loading) {
     return (
-      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50 z-50">
+      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center glassmorphism-1  bg-opacity-40 z-50">
         <svg className="sun" width="200" height="200" viewBox="0 0 200 200">
           <defs>
             <linearGradient id="linerGradient">
@@ -91,32 +93,45 @@ function Interview() {
               <stop className="stop2" offset="1" />
             </linearGradient>
             <linearGradient
-              y2="160"
-              x2="160"
-              y1="40"
-              x1="40"
-              gradientUnits="userSpaceOnUse"
               id="gradient"
+              x1="40"
+              y1="40"
+              x2="160"
+              y2="160"
+              gradientUnits="userSpaceOnUse"
               href="#linerGradient"
             />
           </defs>
           <path
             className="halvan"
-            d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64"
+            d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 
+               0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 
+               0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 
+               -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 
+               64,-64 64,-64"
           />
           <circle className="strecken" cx="100" cy="100" r="64" />
         </svg>
-
+  
         <svg className="skugga" width="200" height="200" viewBox="0 0 200 200">
           <path
             className="halvan"
-            d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64"
+            d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 
+               0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 
+               0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 
+               -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 
+               64,-64 64,-64"
           />
           <circle className="strecken" cx="100" cy="100" r="64" />
         </svg>
+  
+        <div className="text-gray-900 text-lg font-medium">
+           <span>Loading <span className="arrow animate-bounce">...</span></span>
+        </div>
       </div>
     );
   }
+  
 
   if (error)
     return <p className="text-red-600 text-center mt-5">Error: {error}</p>;
@@ -193,6 +208,16 @@ function Interview() {
                 placeholder="e.g. Joe Anderson"
                 className="w-full p-3 border rounded-lg text-gray-800"
                 onChange={(event) => setUserName(event.target.value)}
+              />
+            </div>
+            <div className="w-full mt-1">
+              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-700 mb-2">
+                Enter your Email Address
+              </h3>
+              <Input
+                placeholder="e.g. Joe@gmail.com"
+                className="w-full p-3 border rounded-lg text-gray-800"
+                onChange={(event) => setUserEmail(event.target.value)}
               />
             </div>
 
