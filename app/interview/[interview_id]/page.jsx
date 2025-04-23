@@ -26,11 +26,28 @@ function Interview() {
   const [error, setError] = useState(null);
   const [questionList, setQuestionList] = useState([]);
   const { interview_id } = useParams();
-  const [userName, setUserName] = useState();
-  const [userEmail, setUserEmail] = useState();
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [showJobDescModal, setShowJobDescModal] = useState(false);
   const { interviewInfo, setInterviewInfo } = useContext(InterviewDataContext);
   const router = useRouter();
+  const [emailError, setEmailError] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const validateEmail = (email) => {
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return gmailRegex.test(email);
+  };
+  
+  // Update button disable logic based on input validity
+  useEffect(() => {
+    if (userName && validateEmail(userEmail) && !emailError) {
+      setIsButtonDisabled(false); // Enable button when both inputs are valid
+    } else {
+      setIsButtonDisabled(true); // Keep button disabled otherwise
+    }
+  }, [userName, userEmail, emailError]);
+
   useEffect(() => {
     if (!interview_id) return;
 
@@ -194,7 +211,7 @@ function Interview() {
             >
               <BoomBox className="h-4 w-4 text-blue-500" />
               <span className="font-medium">Job Description</span>
-              <ArrowLeft className="w-4 h-4 text-black arrow " />
+              <ArrowLeft className="w-4 h-4 text-black arrow" />
               <span className="text-sm pr-5 text-gray-500 cursor-default select-none">
                 Click to see
               </span>
@@ -211,15 +228,28 @@ function Interview() {
               />
             </div>
             <div className="w-full mt-1">
-              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-700 mb-2">
-                Enter your Email Address
-              </h3>
-              <Input
-                placeholder="e.g. Joe@gmail.com"
-                className="w-full p-3 border rounded-lg text-gray-800"
-                onChange={(event) => setUserEmail(event.target.value)}
-              />
-            </div>
+      <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-700 mb-2">
+        Enter your Email Address
+      </h3>
+      <Input
+        placeholder="e.g. Joe@gmail.com"
+        className={`w-full p-3 border rounded-lg text-gray-800 ${emailError ? 'border-rose-500' : ''}`}
+        onChange={(event) => {
+          const email = event.target.value;
+          setUserEmail(email);
+        
+          if (email && !validateEmail(email)) {
+            setEmailError("Please enter a valid Gmail address (e.g. name@gmail.com)");
+          } else {
+            setEmailError("");
+          }
+        }}
+        value={userEmail}
+      />
+      {emailError && (
+        <p className="text-rose-500 text-sm mt-1">{emailError}</p>
+      )}
+    </div>
 
             <div className="flex flex-col bg-blue-50 gap-4 p-4 rounded-lg mt-6 shadow-md">
               <div>
@@ -246,7 +276,7 @@ function Interview() {
             </p>
             <Button
               className="w-full flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow mt-6"
-              disabled={loading || !userName}
+              disabled={isButtonDisabled}
               onClick={() => onJoinInterview()}
             >
               <Video /> {loading && <Loader2 />} Join Interview

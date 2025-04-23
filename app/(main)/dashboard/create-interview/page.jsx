@@ -119,7 +119,7 @@ function CreateInterview() {
 
                   {/* Icon Circle */}
                   <div
-                    className={`w-10 h-10 flex items-center justify-center rounded-full border-2 shadow-md z-10 transition-all duration-300 ${
+                    className={`w-8 h-8 flex items-center justify-center rounded-full border-2 shadow-md z-10 transition-all duration-300 ${
                       isActive
                         ? `bg-gradient-to-br ${currentColors.gradient} text-white border-transparent animate-bounce`
                         : isComplete || isReached
@@ -143,7 +143,7 @@ function CreateInterview() {
 
                   {/* Step Label */}
                   <span
-                    className={`text-sm ${
+                    className={`text-xs ${
                       isActive
                         ? "text-foreground font-semibold"
                         : "text-muted-foreground"

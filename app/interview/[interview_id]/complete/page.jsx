@@ -104,7 +104,7 @@ export default function InterviewComplete() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full text-center text-sm text-gray-500 mt-12">
+      <footer className="w-full text-center text-sm text-gray-500 mt-1">
         <div className="py-4">
           © {new Date().getFullYear()} AIQuestify. All rights reserved.
           <span className="block text-xs text-gray-400">Built with ❤️ </span>
