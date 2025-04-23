@@ -126,7 +126,7 @@ const handleReset = () => {
     <Share2 className="w-5 h-5 text-blue-600" />
   </div>
         <hr className="my-2" />
-        <div className="flex flex-wrap justify-center mt-5 gap-4 sm:gap-7">
+        <div className="sm:flex sm:flex-wrap grid grid-cols-2 justify-center mt-5 gap-4 sm:gap-7">
           <Button
             variant={"outline"}
             className="flex items-center gap-1 px-5 py-4 bg-white/10 backdrop-blur-lg border border-gray-300 rounded-xl transition-all duration-300 shadow-xl cursor-pointer hover:scale-105 hover:bg-black hover:text-white"

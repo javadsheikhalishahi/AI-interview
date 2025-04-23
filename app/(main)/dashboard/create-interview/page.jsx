@@ -54,19 +54,19 @@ function CreateInterview() {
 
       {/* Header and progress container */}
       <div className="mt-3 px-5 sm:px-10 md:px-24 lg:px-44 xl:px-96">
-        <div className="flex items-center gap-12 sm:gap-24 md:gap-16 lg:gap-52 mb-4 animate-fadeInUp">
+        <div className="relative -space-y-5 animate-fadeInUp">
           <button
             onClick={() => router.back()}
             className="p-2 cursor-pointer rounded-2xl bg-blue-100 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <ArrowLeft className="w-5 h-5 text-blue-500" />
           </button>
-          <h2 className=" flex flex-col text-sm sm:text-xl md:text-lg lg:text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent tracking-tight drop-shadow-sm">
+          <h2 className="relative bottom-10 text-center text-sm sm:text-xl md:text-lg lg:text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent tracking-tight drop-shadow-md">
             Create New Interview
           </h2>
         </div>
 
-        <div className="w-full max-w-4xl mx-auto px-1 mt-3">
+        <div className="w-full max-w-7xl mx-auto px-1 mt-1">
           <div className="flex justify-between items-center relative">
             {[1, 2, 3].map((n, idx) => {
               const isActive = step === n;

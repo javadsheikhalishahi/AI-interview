@@ -197,7 +197,7 @@ const handlePaste = (e) => {
         <Textarea
   placeholder="Enter details job description"
   className={cn(
-    "h-[200px] max-w-3xl mt-2",
+    "h-[200px] max-w-7xl mt-2",
     description.length > 3000 && "border-rose-500"
   )}
   value={description}
