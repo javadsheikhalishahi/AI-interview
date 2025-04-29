@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
-import { Clock10, Copy, CopyCheck, Share, Share2 } from "lucide-react";
+import { ArrowRight, Clock10, Copy, CopyCheck, Share, Share2, User2 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -27,7 +28,7 @@ const avatarOptions = [
     "/select/icons8-facebook.svg",
   ];
 
-function InterviewCards({ interview }) {
+function InterviewCards({ interview, viewDetail=false, showCandidates = true}) {
     const [copied, setCopied] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedAvatar, setSelectedAvatar] = useState(() => {
@@ -111,15 +112,28 @@ function InterviewCards({ interview }) {
                         </SelectContent>
                     </Select>
                 </div>
-        <h2 className="text-sm">{moment(interview?.created_at).format('DD MMM yyy')}</h2>
+        <h2 className="text-sm font-semibold">{moment(interview?.created_at).format('DD MMM yyy')}</h2>
       </div>
-      <h2 className="text-lg font-bold mt-3 text-gray-900">{interview?.JobPosition}</h2>
-      <h2 className="flex items-center text-sm sm:text-sm text-gray-600 mt-2 gap-2">
-  <Clock10 className="w-4 h-4 text-yellow-400" />
-  {interview?.InterviewDuration}
-</h2>
+      <h2 className="text-lg font-bold mt-3 text-gray-900 animate-slideInRight1">{interview?.JobPosition}</h2>
+      <div className="flex flex-col items-start text-sm text-gray-600 mt-3 gap-2">
+  <div className="flex items-center gap-1 animate-slideInRight2">
+    <Clock10 className="w-4 h-4 text-yellow-400" />
+    <span>{interview?.InterviewDuration}</span>
+  </div>
 
-      <div className="flex gap-4 mt-4">
+  {showCandidates && (
+    <div className="flex items-center gap-1 animate-slideInRight3">
+      <User2 className="w-4 h-4 text-purple-600" />
+      <span className="text-emerald-600 font-semibold">
+        {interview['interview-feedback']?.length} Candidates
+      </span>
+    </div>
+  )}
+</div>
+
+
+
+     {!viewDetail ? <div className="flex gap-4 mt-4">
       <Button
             onClick={() => {
               onCopyLink();
@@ -138,6 +152,13 @@ function InterviewCards({ interview }) {
           </Button>
           <Button className='cursor-pointer hover:scale-105 animate-buttonEntrance1' onClick={openModal}><Share /> Send</Button>
       </div>
+      :
+      <Link href={'/scheduled-interview/'+ interview?.interview_id+'/details'}>
+     <Button className='flex w-full items-center justify-center gap-2 py-3 text-black
+        glassmorphism-2
+        rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 mt-4 cursor-pointer animate-slideInRight4'>View Details <ArrowRight /></Button></Link>
+    } 
+
 
        {/* Modal */}
        {isModalOpen && (
@@ -206,4 +227,4 @@ function InterviewCards({ interview }) {
   )
 }
 
-export default InterviewCards
+export default InterviewCards;

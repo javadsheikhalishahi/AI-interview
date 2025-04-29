@@ -298,16 +298,16 @@ function Interview() {
         · All rights reserved.
       </div>
       {showJobDescModal && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
-          <div className="bg-white w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-xl animate-fadeIn overflow-hidden flex flex-col">
+        <div className="fixed inset-0 z-50 backdrop-blur-xs bg-opacity-50 flex items-center justify-center px-4 shadow-xl border border-gray-400">
+          <div className="bg-white w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-xl animate-fadeIn overflow-hidden flex flex-col border border-gray-300">
             {/* Header with Close Button */}
             <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold text-gray-800">
+              <h2 className="text-lg font-bold text-gray-800">
                 Job Description
               </h2>
               <button
                 onClick={() => setShowJobDescModal(false)}
-                className="text-gray-500 hover:text-gray-700 transition"
+                className="text-gray-500 hover:text-gray-700 transition cursor-pointer"
               >
                 ✕
               </button>
@@ -319,7 +319,7 @@ function Interview() {
             </div>
 
             {/* Footer (optional) */}
-            <div className="p-4 border-t flex justify-end">
+            <div className="p-4 border-t flex justify-end cursor-pointer">
               <Button onClick={() => setShowJobDescModal(false)}>Close</Button>
             </div>
           </div>

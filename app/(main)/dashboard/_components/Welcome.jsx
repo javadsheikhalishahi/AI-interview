@@ -38,8 +38,8 @@ function Welcome() {
             <Image
               src={user?.picture}
               alt="Avatar"
-              width={40}
-              height={40}
+              width={45}
+              height={45}
               className="rounded-full shadow-md border border-gray-200"
             />
            <div className="relative group">

@@ -33,7 +33,7 @@ function LatestInterviewsList() {
     <div className="my-5 p-1 animate-fadeIn">
        <hr className="mb-3" />
       <h2 className="text-2xl font-bold slide-in-top ml-2">
-        Interview History
+         Latest Interviews
       </h2>
      
       {interviewList?.length == 0 && 
@@ -52,10 +52,51 @@ function LatestInterviewsList() {
       {interviewList && 
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
            {interviewList.map((interview, index) => (
-            <InterviewCards interview={interview} key={index} />
+            <InterviewCards interview={interview} key={index} showCandidates={false}/>
            ))}
         </div>
        }
+       <hr className="mt-10"/>
+       <footer className="glassmorphism text-black py-10 mt-5 rounded-xl">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-center md:text-left">
+          
+          {/* Dashboard Footer Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">Manage Your Interviews</h3>
+            <p className="mt-2 text-sm text-gray-700">
+              View and manage all your interviews in one place. You can create, review, and continue your interviews anytime.
+            </p>
+          </div>
+          
+          {/* Create Interview Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">Create Interview</h3>
+            <p className="mt-2 text-sm text-gray-700">
+              Ready to start? Quickly set up new interviews and get started with ease.
+            </p>
+            <Link href="/dashboard/create-interview" passHref>
+              <span className="text-blue-500 hover:text-blue-600 transition-all duration-300 mt-3 inline-block">
+                + Create New Interview
+              </span>
+            </Link>
+          </div>
+
+          {/* Latest Interviews Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">Latest Interviews</h3>
+            <p className="mt-2 text-sm text-gray-700">
+              Stay updated with the latest interviews you've created. Manage them efficiently.
+            </p>
+          </div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="mt-10 text-center text-sm text-gray-500">
+          <p>© {new Date().getFullYear()} AIQuestify. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
     </div>
   );
 }

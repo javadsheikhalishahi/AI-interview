@@ -144,6 +144,18 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+.glassmorphism-2 {
+  background: rgba(255, 255, 255, 0.4); 
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.glassmorphism-2:hover {
+  @apply bg-blue-600 text-white;
+}
 
 .glassmorphism {
   background: rgba(255, 255, 255, 0.25);
@@ -473,6 +485,73 @@
   animation: wave3 1.4s infinite ease-in-out;
 }
  
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px #facc15, 0 0 20px #f472b6, 0 0 30px #c084fc;
+  }
+  50% {
+    box-shadow: 0 0 20px #facc15, 0 0 30px #f472b6, 0 0 40px #c084fc;
+  }
+}
+
+.animate-glow {
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Tailwind utility classes */
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-out forwards;
+}
 
 
 @layer base {

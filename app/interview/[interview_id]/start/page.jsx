@@ -7,7 +7,7 @@ import axios from "axios";
 import { Loader2, PhoneCall, Timer } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const AudioWaveAnimated = ({ color = "bg-blue-500" }) => {
@@ -33,7 +33,8 @@ function StartInterview() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  
+  const hasGeneratedFeedback = useRef(false);
+
   useEffect(() => {
     if (interviewInfo?.interviewData?.InterviewDuration) {
       const durationStr = interviewInfo.interviewData.InterviewDuration;
@@ -173,6 +174,9 @@ function StartInterview() {
     });
   
     vapi.on("call-end", () => {
+      if (hasGeneratedFeedback.current) return;
+      hasGeneratedFeedback.current = true;
+      
       console.log("Call has ended.");
       toast("Interview Ended.");
       setInterviewEnded(true);
