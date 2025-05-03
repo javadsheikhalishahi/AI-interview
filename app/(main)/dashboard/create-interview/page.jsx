@@ -9,7 +9,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import Welcome from "../_components/Welcome";
 import FormContainer from "./_components/FormContainer";
 import InterviewLink from "./_components/InterviewLink";
 import QuestionList from "./_components/QuestionList";
@@ -50,23 +49,21 @@ function CreateInterview() {
 
   return (
     <div>
-      <Welcome />
-
       {/* Header and progress container */}
       <div className="mt-3 px-5 sm:px-10 md:px-24 lg:px-44 xl:px-96">
         <div className="relative -space-y-5 animate-fadeInUp">
           <button
             onClick={() => router.back()}
-            className="p-2 cursor-pointer rounded-2xl bg-blue-100 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 cursor-pointer rounded-2xl bg-blue-100 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center"
           >
-            <ArrowLeft className="w-5 h-5 text-blue-500" />
+            <ArrowLeft className="w-5 h-5 text-blue-500 transition-all duration-300 hover:text-blue-700" />
           </button>
-          <h2 className="relative bottom-10 text-center text-sm sm:text-xl md:text-lg lg:text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent tracking-tight drop-shadow-md">
-            Create New Interview
+
+          <h2 className="relative bottom-10 text-center text-sm sm:text-xl md:text-lg lg:text-3xl font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent tracking-tight drop-shadow-md animate-fadeIn">
+            Create a New Interview
           </h2>
         </div>
-
-        <div className="w-full max-w-7xl mx-auto px-1 mt-1">
+        <div className="w-full max-w-7xl mx-auto px-1 mt-6">
           <div className="flex justify-between items-center relative">
             {[1, 2, 3].map((n, idx) => {
               const isActive = step === n;
@@ -119,7 +116,7 @@ function CreateInterview() {
 
                   {/* Icon Circle */}
                   <div
-                    className={`w-8 h-8 flex items-center justify-center rounded-full border-2 shadow-md z-10 transition-all duration-300 ${
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border-2 shadow-md z-10 transition-all duration-300 ${
                       isActive
                         ? `bg-gradient-to-br ${currentColors.gradient} text-white border-transparent animate-bounce`
                         : isComplete || isReached
@@ -127,12 +124,12 @@ function CreateInterview() {
                         : "bg-muted text-muted-foreground border-muted"
                     }`}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-6 h-6" />
                   </div>
 
                   {/* Step Number */}
                   <span
-                    className={`mt-1 text-xs font-bold ${
+                    className={`mt-2 text-sm font-bold ${
                       isActive || isReached
                         ? currentColors.text
                         : "text-muted-foreground"

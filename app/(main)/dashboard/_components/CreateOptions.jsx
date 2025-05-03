@@ -44,7 +44,7 @@ function CreateOptions() {
       </Link>
 
       {/* Option 2 */}
-      <div
+      <Link href={"/dashboard/create-call"}
         className="ripple-effect relative bg-white rounded-2xl border border-gray-200 p-5 shadow-md hover:shadow-lg hover:bg-blue-50 hover:border-blue-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer animate-fadeUp delay-[200ms]"
         onClick={addRipple}
       >
@@ -56,7 +56,7 @@ function CreateOptions() {
         <button className="mt-3 text-sm text-blue-600 font-medium hover:underline">
           Get Started
         </button>
-      </div>
+        </Link>
 
       {/* Coming Soon Option */}
       <div

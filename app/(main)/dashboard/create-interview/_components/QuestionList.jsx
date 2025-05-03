@@ -95,7 +95,7 @@ function QuestionList({ formData, onCreateLink }) {
   return (
     <div className="relative">
       {loading && (
-        <div className="flex bg-white items-center border border-blue-600 rounded-2xl p-6 gap-2 mt-5">
+        <div className="flex bg-white items-center border border-blue-600 rounded-2xl p-6 gap-2 mt-6">
           <LoaderPinwheel className="animate-spin w-8 h-8 text-blue-600" />
           <div className="pl-2">
             <h2 className="font-medium animate-pulse">

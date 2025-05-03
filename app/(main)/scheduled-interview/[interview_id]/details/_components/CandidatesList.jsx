@@ -1,7 +1,10 @@
-import { ArrowRight, CalendarCheck, Clock } from "lucide-react";
+import { useCallListStore } from "@/app/stores/useCallListStore";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, CalendarCheck, Clock, Phone } from "lucide-react";
 import md5 from "md5";
 import moment from "moment";
 import Image from "next/image";
+import { toast } from "sonner";
 import CandidateFeedbackDialog from "./CandidateFeedbackDialog";
 
 const getGravatarUrl = (email) => {
@@ -10,6 +13,22 @@ const getGravatarUrl = (email) => {
 };
 
 function CandidatesList({ candidateList }) {
+
+  const { callList, addToCallList } = useCallListStore();
+
+  const handleAddToCall = (candidate) => {
+    // Check if the candidate is already in the call list
+    const isAlreadyInCallList = callList.some((existingCandidate) => existingCandidate.userEmail === candidate.userEmail);
+    
+    if (!isAlreadyInCallList) {
+      addToCallList(candidate);
+      toast.success(`${candidate.userName} added to call list.`);
+    } else {
+      toast.error(`${candidate.userName} is already in the call list.`);
+    }
+  };
+  
+
   return (
     <div className="p-4">
       <h2 className="font-extrabold text-xl my-6">
@@ -59,7 +78,7 @@ function CandidatesList({ candidateList }) {
             </div>
 
             {/* Rating + Dialog */}
-            <div className="flex items-center justify-between sm:justify-end gap-4 sm:w-auto w-full">
+            <div className="flex items-center justify-between sm:justify-end gap-6 sm:w-auto w-full">
               {feedback?.rating?.totalRating ? (
                 <h2 className="text-emerald-500 font-bold">{feedback.rating.totalRating}/10</h2>
               ) : (
@@ -67,6 +86,19 @@ function CandidatesList({ candidateList }) {
               )}
               <CandidateFeedbackDialog candidate={candidate} />
             </div>
+            <Button
+  onClick={() => handleAddToCall(candidate)}
+  variant="outline"
+  aria-label="Add candidate to call"
+  className="flex items-center gap-1 bg-white text-emerald-500 border-emerald-500 hover:bg-emerald-500
+ hover:text-white hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2
+  focus:ring-emerald-500 rounded-lg p-2 cursor-pointer"
+>
+  <Phone className="w-5 h-5" />
+  <span>Add to Call</span>
+</Button>
+
+
           </div>
         );
       })}

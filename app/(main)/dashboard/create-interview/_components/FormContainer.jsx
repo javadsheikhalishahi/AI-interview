@@ -165,7 +165,7 @@ const handlePaste = (e) => {
 };
 
   return (
-    <div className="bg-white border border-gray-300 shadow-2xl max-w-7xl rounded-2xl p-5 mt-5 animate-slideInRight">
+    <div className="bg-white border border-gray-300 shadow-2xl max-w-7xl rounded-2xl p-5 mt-7 animate-slideInRight">
       <div className="animate-slideInRight1">
         <h2 className="text-sm font-medium">Job Position</h2>
         <Input

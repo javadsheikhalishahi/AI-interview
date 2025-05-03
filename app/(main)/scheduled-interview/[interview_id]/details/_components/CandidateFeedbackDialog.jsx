@@ -18,7 +18,7 @@ function CandidateFeedbackDialog({ candidate }) {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="text-blue-600 border-blue-300 hover:bg-blue-50 hover:scale-[1.02] transition-transform"
+          className="text-blue-600 border-blue-300 hover:bg-blue-50 hover:scale-[1.04] transition-transform cursor-pointer"
         >
           View Report
         </Button>
