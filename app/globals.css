@@ -563,9 +563,39 @@
     transform: scale(1);
   }
 }
-
 .animate-status-in {
   animation: status-in 0.5s ease-in-out;
+}
+
+/* Force responsive layout for Zego injected container */
+/* Force Zego container to be full width/height and responsive */
+#joinMeeting .D9WLyEQaARfWqCTyVrpU,
+#joinMeeting .QajuHzlZleFtiTUp_E8u {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-1px); }
+  40% { transform: translateX(1px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out infinite;
 }
 
 

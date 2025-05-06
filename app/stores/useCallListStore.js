@@ -5,10 +5,11 @@ export const useCallListStore = create(
   persist(
     (set) => ({
       callList: [],
-      addToCallList: (candidate) => {
-        const candidateWithStatus = { ...candidate, status: "Not Invited" };
+      candidateDates: {},
+
+      addToCallList: (candidate, status = "Not Invited") => {
+        const candidateWithStatus = { ...candidate, status };
         set((state) => {
-          // Prevent duplicates based on email
           const alreadyExists = state.callList.some(
             (c) => c.userEmail === candidate.userEmail
           );
@@ -30,6 +31,16 @@ export const useCallListStore = create(
           callList: state.callList.filter((candidate) => candidate.userEmail !== email),
         }));
       },
+      // ✅ Add this method to store callId
+      updateCallId: (email, callId) => {
+        set((state) => ({
+          callList: state.callList.map((candidate) =>
+            candidate.userEmail === email
+              ? { ...candidate, callId }
+              : candidate
+          ),
+        }));
+      },
       // Rehydrate call list to remove duplicates
       rehydrateCallList: () =>
         set((state) => {
@@ -43,9 +54,36 @@ export const useCallListStore = create(
           }
           return { callList: unique };
         }),
+        updateScheduledTime: (email, scheduledTime) => {
+          set((state) => ({
+            callList: state.callList.map((candidate) =>
+              candidate.userEmail === email
+                ? { ...candidate, scheduledTime }
+                : candidate
+            ),
+          }));
+        },
+        setScheduledTime: (email, time) =>
+          set((state) => ({
+            callList: state.callList.map((candidate) =>
+              candidate.userEmail === email
+                ? { ...candidate, scheduledTime: time }
+                : candidate
+            ),
+          })),
+          setCandidateDate: (email, date) =>
+            set((state) => ({
+              candidateDates: { ...state.candidateDates, [email]: date },
+            })),
+            
+            scheduledTimes: {},
+setScheduledTime: (email, time) =>
+  set((state) => ({
+    scheduledTimes: { ...state.scheduledTimes, [email]: time },
+  })),
     }),
     {
-      name: 'call-list-storage', // key for localStorage
+      name: 'call-list-storage',
     }
   )
 );
