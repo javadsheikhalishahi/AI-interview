@@ -214,7 +214,7 @@ export default function Page({ params }) {
           rel="noopener noreferrer"
           className="text-blue-600 font-semibold hover:text-indigo-600 transition-all duration-200 underline underline-offset-4 decoration-blue-300 hover:decoration-indigo-400"
         >
-          Javad.Inc
+          Javad Sheikhalishahi.Inc
         </Link>{" "}
         · All rights reserved.
       </div>

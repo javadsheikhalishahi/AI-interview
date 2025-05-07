@@ -1,6 +1,6 @@
 'use client';
 
-import { Clock2, PhoneCall, Video } from "lucide-react";
+import { Brain, Clock2, PhoneCall } from "lucide-react";
 import Link from "next/link";
 
 function CreateOptions() {
@@ -33,8 +33,8 @@ function CreateOptions() {
         className="ripple-effect relative bg-white rounded-2xl border border-gray-200 p-5 shadow-md hover:shadow-lg hover:bg-blue-50 hover:border-blue-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer animate-fadeUp delay-[100ms]"
         onClick={addRipple}
       >
-        <Video className="w-12 h-12 text-blue-600 p-3 bg-blue-100 rounded-2xl shadow-inner transition-transform hover:rotate-3 hover:scale-105" />
-        <h2 className="font-bold pt-2 text-lg">Create New Interview</h2>
+        <Brain className="w-12 h-12 text-purple-600 p-3 bg-purple-100 rounded-2xl shadow-inner transition-transform hover:rotate-3 hover:scale-105" />
+        <h2 className="font-bold pt-2 text-lg">Create New AI Interview</h2>
         <p className="text-gray-500 text-sm mt-1">
           Build interviews with AI and manage candidate scheduling with ease
         </p>
@@ -48,8 +48,8 @@ function CreateOptions() {
         className="ripple-effect relative bg-white rounded-2xl border border-gray-200 p-5 shadow-md hover:shadow-lg hover:bg-blue-50 hover:border-blue-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer animate-fadeUp delay-[200ms]"
         onClick={addRipple}
       >
-        <PhoneCall className="w-12 h-12 text-blue-600 p-3 bg-blue-100 rounded-2xl shadow-inner transition-transform hover:rotate-3 hover:scale-105" />
-        <h2 className="font-bold pt-2 text-lg">Set Up a Phone Screening Interview</h2>
+        <PhoneCall className="w-12 h-12 text-emerald-500 p-3 bg-emerald-100 rounded-2xl shadow-inner transition-transform hover:rotate-3 hover:scale-105" />
+        <h2 className="font-bold pt-2 text-lg">Set Up a Video-Calling Interview Session</h2>
         <p className="text-gray-500 text-sm mt-1">
           Plan and schedule phone interviews with candidates
         </p>

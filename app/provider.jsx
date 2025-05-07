@@ -7,33 +7,56 @@ import { useContext, useEffect, useState } from "react";
 function Provider({ children }) {
   const [user, setUser] = useState();
   useEffect(() => {
-    CreateNewUser();
+    // Fetch on mount
+    fetchUser();
+
+    // Listen for auth state changes
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      fetchUser(); // Re-fetch user info on login/logout
+    });
+
+    // Cleanup the listener on unmount
+    return () => {
+      listener.subscription?.unsubscribe?.();
+    };
   }, []);
 
-  const CreateNewUser = async() => {
-    supabase.auth.getUser().then(async ({ data: { user } }) => {
-      //Check exist user
-      let { data: Users, error } = await supabase
-        .from('Users')
-        .select("*")
-        .eq('email', user?.email);
+  const fetchUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-      console.log(Users);
-      // If not, Create new user
-      if (Users?.length == 0) {
-        const { data, error } = await supabase.from("Users").insert([
+    if (!user) {
+      setUser(null);
+      return;
+    }
+
+    // Check if user already exists in the "Users" table
+    const { data: existingUsers } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("email", user.email);
+
+    // If not, create new user
+    if (!existingUsers || existingUsers.length === 0) {
+      const { data: newUser, error } = await supabase
+        .from("Users")
+        .insert([
           {
-            name: user?.user_metadata?.name,
-            email: user?.email,
-            picture: user?.user_metadata?.picture,
+            name: user.user_metadata?.name,
+            email: user.email,
+            picture: user.user_metadata?.picture,
           },
         ])
-        console.log(data);
-        setUser(data);
-        return;
+        .select()
+        .single(); // Immediately fetch the inserted user
+
+      if (!error) {
+        setUser(newUser);
       }
-      setUser(Users[0]);
-    });
+    } else {
+      setUser(existingUsers[0]);
+    }
   };
 
   return ( 

@@ -31,7 +31,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="transform duration-200">
+    <Sidebar className="transform duration-200 ">
       <SidebarHeader className="flex p-1 items-center bg-gradient-to-r from-blue-50 via-sky-50 to-cyan-50">
         <Image
           src="/Logo.png"
@@ -108,7 +108,7 @@ export function AppSidebar() {
             rel="noopener noreferrer"
             className="text-blue-600 font-semibold hover:text-indigo-600 transition-all duration-200 underline underline-offset-4 decoration-blue-300 hover:decoration-indigo-400"
           >
-            Javad.Inc
+            Javad Sheikhalishahi.Inc
           </Link>{" "}
           · All rights reserved.
         </div>

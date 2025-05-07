@@ -163,6 +163,15 @@
   backdrop-filter: blur(3px);
 }
 
+.glassmorphism-3 {
+  background: rgba(255, 255, 255, 0.4); 
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
 
 @keyframes slideInRight {
   0% {
@@ -493,6 +502,14 @@
 .animate-wiggle {
   animation: wiggle 1s ease-in-out infinite;
 }
+@keyframes wiggle1 {
+  0%, 100% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+}
+.animate-wiggle1 {
+  animation: wiggle 5s ease-in-out infinite;
+}
+
 
 @keyframes glow {
   0%, 100% {
@@ -596,6 +613,103 @@
 
 .shake {
   animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+ @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+ }
+
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* Apply scroll animations using react-intersection-observer */
+/* The `inView` state from useInView will trigger these classes */
+.animate-fadeInUp.is-inview {
+  animation: fadeInUp 1s ease-out forwards;
+}
+ .animate-slideInLeft.is-inview {
+    animation: slideInLeft 1s ease-out forwards;
+}
+ .animate-slideInRight.is-inview.is-inview {
+    animation: slideInRight 1s ease-out forwards;
+}
+ .animate-fadeIn.is-inview {
+     animation: fadeIn 1s ease-out forwards;
+ }
+
+
+.animate-blob {
+    animation: blob 4s infinite;
+}
+
+/* Animation delays */
+.animation-delay-300 { animation-delay: 0.3s; }
+.animation-delay-600 { animation-delay: 0.6s; }
+.animation-delay-900 { animation-delay: 0.9s; }
+.animation-delay-1200 { animation-delay: 1.2s; }
+.animation-delay-1500 { animation-delay: 1.5s; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+@keyframes gradientSlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradientSlow {
+  background-size: 200% 200%;
+  animation: gradientSlow 15s ease infinite;
 }
 
 
