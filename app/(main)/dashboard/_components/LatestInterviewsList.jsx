@@ -3,7 +3,8 @@
 import { useUser } from "@/app/provider";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/services/supabaseClient";
-import { Video } from "lucide-react";
+import { Brain, GalleryVerticalEnd } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import InterviewCards from "./InterviewCards";
@@ -31,16 +32,18 @@ function LatestInterviewsList() {
 
   return (
     <div className="my-5 p-1 animate-fadeIn">
-       <hr className="mb-3" />
-      <h2 className="text-2xl font-bold slide-in-top ml-2">
-         Latest Interviews
-      </h2>
+       <hr className="mb-7 " />
+       <h2 className="text-3xl font-extrabold text-black ml-2 flex items-center gap-3 animate-slideInTop">
+  <GalleryVerticalEnd className="w-7 h-7 text-blue-500 animate-bounce" />
+  Latest Interviews
+</h2>
+
      
       {interviewList?.length == 0 && 
         <div className="flex flex-col items-center mt-5 gap-3 p-5 animate-fadeUp">
-          <Video className="h-10 w-10 text-blue-600 bounce-in duration-300" />
-          <h2 className="text-center font-bold text-gray-500 animate-bounce">
-            You haven’t created any interviews yet! 🤔
+          <Brain className="h-10 w-10 text-purple-600 bounce-in duration-300" />
+          <h2 className="text-center font-bold text-gray-500 ">
+            You haven’t created any AI Interviews yet! <Image src="/Notfound.svg" alt="not found" width={500} height={500}/>
           </h2>
           <Link href="/dashboard/create-interview" passHref>
             <Button className="flex items-center justify-center gap-2 py-3 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer animate-buttonEntrance animate-pulseGlow">

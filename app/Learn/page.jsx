@@ -68,9 +68,9 @@ export default function LearnMorePage() {
         {/* Custom Bar Chart */}
         <div className="bg-gray-800 p-6 rounded-xl shadow-lg mb-10">
           {comparisonData.map((item, index) => (
-            <div key={index} className="flex items-center mb-4">
+            <div key={index} className="flex items-center mb-4 ">
               <div className="w-1/3 text-gray-300">{item.feature}</div>
-              <div className="w-2/3 flex items-center space-x-4 gap-20 mr-32">
+              <div className="w-2/3 flex items-center space-x-4">
                 <div className="w-full bg-gray-600 h-4 rounded-full">
                   <div
                     className="bg-blue-600 h-4 rounded-full"

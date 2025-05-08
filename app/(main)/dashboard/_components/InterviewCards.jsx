@@ -70,10 +70,12 @@ function InterviewCards({ interview, viewDetail=false, showCandidates = true}) {
             localStorage.setItem(`selectedAvatar-${interview?.interview_id}`, selectedAvatar);
         }
     }, [selectedAvatar, interview?.interview_id]);
-
+  
   return (
-    <div className=" bg-white rounded-xl p-5 border mt-6 animate-slideInRight shadow-xl transform transition-all hover:scale-105 hover:shadow-2xl">
-      <div className="flex items-center justify-between mb-4">
+    <div className="hover:rotate-[1deg] group bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] rounded-xl p-5 border border-black mt-7 animate-slideInRight shadow-lg shadow-black transform transition-all hover:border-blue-600 hover:scale-105 hover:shadow-2xl duration-500">
+      <div className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-purple-500/20 to-blue-500/30 blur-none rounded-xl animate-pulse"></div>
+  </div><div className="flex items-center justify-between mb-4">
       <div className="flex items-center gap-2">
                     {/* Avatar Image that opens the dropdown */}
                     <Image
@@ -81,7 +83,7 @@ function InterviewCards({ interview, viewDetail=false, showCandidates = true}) {
                         alt="Selected Avatar"
                         width={40}
                         height={40}
-                        className="rounded-full border-2 border-blue-400 shadow-md cursor-pointer hover:scale-105 transition duration-300"
+                        className="rounded-full bg-white border-2 border-blue-400 shadow-md cursor-pointer hover:scale-105 transition duration-300"
                         onClick={() => {
                             if (triggerRef.current) {
                                 triggerRef.current.click();
@@ -112,10 +114,10 @@ function InterviewCards({ interview, viewDetail=false, showCandidates = true}) {
                         </SelectContent>
                     </Select>
                 </div>
-        <h2 className="text-sm font-semibold">{moment(interview?.created_at).format('DD MMM yyy')}</h2>
+        <h2 className="text-sm font-semibold text-white">{moment(interview?.created_at).format('DD MMM yyy')}</h2>
       </div>
-      <h2 className="text-lg font-bold mt-3 text-gray-900 animate-slideInRight1">{interview?.JobPosition}</h2>
-      <div className="flex flex-col items-start text-sm text-gray-600 mt-3 gap-2">
+      <h2 className="text-lg font-bold mt-3 text-gray-100 animate-slideInRight1">{interview?.JobPosition}</h2>
+      <div className="flex flex-col items-start text-sm text-gray-100 mt-3 gap-2">
   <div className="flex items-center gap-1 animate-slideInRight2">
     <Clock10 className="w-4 h-4 text-yellow-400" />
     <span>{interview?.InterviewDuration}</span>
@@ -150,13 +152,13 @@ function InterviewCards({ interview, viewDetail=false, showCandidates = true}) {
             )}
             {copied ? "Copied!" : "Copy Link"}
           </Button>
-          <Button className='cursor-pointer hover:scale-105 animate-buttonEntrance1' onClick={openModal}><Share /> Send</Button>
+          <Button className='cursor-pointer bg-white text-black hover:scale-105 hover:bg-white animate-buttonEntrance1' onClick={openModal}><Share /> Send</Button>
       </div>
       :
       <Link href={'/scheduled-interview/'+ interview?.interview_id+'/details'}>
      <Button className='flex w-full items-center justify-center gap-2 py-3 text-black
-        glassmorphism-2
-        rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 mt-4 cursor-pointer animate-slideInRight4'>View Details <ArrowRight /></Button></Link>
+        glassmorphism-2 
+        rounded-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 mt-4 cursor-pointer animate-slideInRight4'>View Details <ArrowRight className="arrow" /></Button></Link>
     } 
 
 

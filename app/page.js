@@ -919,7 +919,7 @@ export default function AiInterviewLandingPage() {
       <Twitter className="w-5 h-5" />
     </Link>
     <Link
-      href="https://github.com"
+      href="https://www.linkedin.com/in/javad-sheikhalishahi-60094629b/"
       target="_blank"
       rel="noopener noreferrer"
       className="text-gray-400 hover:text-cyan-400 transition"

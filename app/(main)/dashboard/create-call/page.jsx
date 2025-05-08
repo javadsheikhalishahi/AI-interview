@@ -15,6 +15,7 @@ import {
   User2,
 } from "lucide-react";
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -85,10 +86,16 @@ export default function CreateCallPage() {
     }
     setLoadingId(email);
     updateCandidateStatus(email, "Pending");
-
+    
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://your-production-domain.com";
     const subject = encodeURIComponent("You're invited to an Interview");
     const body = encodeURIComponent(
-      `Hi there,\n\nYou've been invited to an interview at [Your Company Name].\n\n- For a face-to-face interview, please visit us at the following address:\n[Insert Company Address Here]\n\n- For a remote interview, kindly send your preferred contact details (such as your Telegram or WhatsApp number or ID) to this email,\n\n Or you can:\n\nTo join the remote interview in Date ${moment(candidateDates[candidate.userEmail]).format("MMM D, YYYY h:mm A")}, click the link below:\n\n"http://localhost:3000/room/${callId}"\n\nWe look forward to speaking with you!\n\nThank you,\n[Your Company Name or Team Name]\n\n PowerBy AIQuestify.`
+      `Hi there,\n\nYou've been invited to an interview at [Your Company Name].\n\n` +
+      `- For a face-to-face interview, please visit us at the following address:\n[Insert Company Address Here]\n\n` +
+      `- For a remote interview, kindly send your preferred contact details (such as your Telegram or WhatsApp number or ID) to this email,\n\n` +
+      `Or you can:\n\nTo join the remote interview on ${moment(candidateDates[candidate.userEmail]).format("MMM D, YYYY h:mm A")}, click the link below:\n\n` +
+      `${baseUrl}/room/${callId}\n\n` +
+      `We look forward to speaking with you!\n\nThank you,\n[Your Company Name or Team Name]\n\nPowerBy AIQuestify.`
     );
 
     setTimeout(() => {
@@ -109,12 +116,15 @@ export default function CreateCallPage() {
     const candidate = callList.find((c) => c.userEmail === email);
 
     if (!scheduledTime) {
-      alert("Please select a date and time for this candidate's call!");
+      toast.error("Please select a date and time for this candidate's call!");
       return;
     }
 
+    toast.success(`Call created for ${candidate.name || email}`, {
+    });
+
     const callId = uuidv4();
-    setCallLink(`https://yourapp.com/room/${callLink}`);
+    setCallLink(`${window.location.origin}/room/${callLink}`);
     updateCallId(email, callId, callLink);
     setScheduledTime(email, scheduledTime);
     setCreatingCallId(email);
@@ -422,13 +432,18 @@ export default function CreateCallPage() {
     ))}
   </div>
 ) : (
-  <div className="text-center text-gray-500 mt-16 p-8"> 
-    <svg className="mx-auto h-12 w-12 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-    </svg>
-    <p className="text-lg font-medium text-gray-700">No candidates added yet.</p>
-    <p className="text-sm text-gray-500 mt-1">Add a candidate to see them listed here.</p>
-  </div>
+  <div className="flex flex-col items-center justify-center  text-center text-gray-500 mt-0 p-8">
+  <Image src="/candidate.png" alt="No Candidate" width={500} height={500} />
+  <p className="text-lg font-medium text-gray-700">No candidates added yet.</p>
+  <p className="text-sm text-gray-500 mt-1">Add a candidate to see them listed here.</p>
+  <Link href='/scheduled-interview' className="mt-5">
+  <Button className='cursor-pointer hover:scale-105'>
+       + Add Candidate
+  </Button>
+  </Link>
+  
+</div>
+
 )}
 </div>
 );}
