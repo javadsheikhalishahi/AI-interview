@@ -32,7 +32,7 @@
 ### 🎤 Interview Mode (English)
 > AI-generated questions and voice interaction using GPT.
 
-![Interview Mode](public/Screenshot%2025-05-13%144529.png)
+![Interview Mode](Screenshot%2025-05-13%144529.png)
 
 ---
 
