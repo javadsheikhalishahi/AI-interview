@@ -2,7 +2,7 @@
 
 **AIQuestify** is a smart AI-powered interview platform that helps users practice and evaluate their interview skills in real-time. Built with Supabase, Vercel, and modern web technologies, it offers a seamless login experience, real-time feedback, and voice-enabled interactions using GPT.
 
-![Hero Banner](public/Screenshot%2025-05-13%143904.png)
+![Hero Banner](public/Screenshot%202025-05-13%20143904.png)
 
 ---
 
@@ -25,14 +25,14 @@
 ### 🔐 Login with Google
 > Simple and secure Google OAuth login flow powered by Supabase.
 
-![Login](public/Screenshot2025-05-13151122.png)
+![Login](public/Screenshot%202025-05-13%20151122.png)
 
 ---
 
 ### 🎤 Interview Mode (English)
 > AI-generated questions and voice interaction using GPT.
 
-![Interview Mode](Screenshot%2025-05-13%144529.png)
+![Interview Mode](public/Screenshot%202025-05-13%20144529.png)
 
 ---
 
@@ -46,14 +46,14 @@
 ### 🧑‍💼 Candidate Dashboard
 > Manage past sessions, view progress, and get suggestions.
 
-![Dashboard](public/Screenshot%2025-05-13%144030.png)
+![Dashboard](public/Screenshot%202025-05-13%20144030.png)
 
 ---
 
 ### ⚙️ Payment Page
 > Toggle app features, set language preferences, and more.
 
-![Settings](public/Screenshot%2025-05-13%145159.png)
+![Settings](public/Screenshot%202025-05-13%20145159.png)
 
 ---
 
