@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
-export default function PaymentPageContent() {
+function PaymentPageContent() {
   const searchParams = useSearchParams();
   const defaultPlan = searchParams.get("plan") || "basic";
 

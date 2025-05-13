@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-export default function BuyPageContent() {
+function BuyPageContent() {
   const searchParams = useSearchParams();
   const selectedPlan = searchParams.get("plan") || "basic";
 
