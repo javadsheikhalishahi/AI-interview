@@ -229,6 +229,16 @@
   animation: slideInRight1 1s ease-out forwards;
   animation-delay: 3.5s; /* Starts after the first finishes */
 }
+.animate-slideInRight5 {
+  opacity: 0;
+  animation: slideInRight1 1s ease-out forwards;
+  animation-delay: 4s; /* Starts after the first finishes */
+}
+.animate-slideInRight6 {
+  opacity: 0;
+  animation: slideInRight1 1s ease-out forwards;
+  animation-delay: 4.5s; /* Starts after the first finishes */
+}
 
 @keyframes buttonEntrance {
   0% {
@@ -262,6 +272,7 @@
 .animate-buttonEntrance1 {
   animation: buttonEntrance 1.2s ease-out forwards;
 }
+
 
 .animate-pulseGlow {
   animation: pulseGlow 2s infinite;
@@ -313,6 +324,9 @@
 
   .bounce-in {
     animation: bounceIn 0.7s ease-out both;
+  }
+  .bounce-in1 {
+    animation: bounceIn 1.2s ease-out both;
   }
 
   .glow-pulse {
@@ -509,6 +523,13 @@
 .animate-wiggle1 {
   animation: wiggle 5s ease-in-out infinite;
 }
+@keyframes wiggle2 {
+  0%, 100% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+}
+.animate-wiggle2 {
+  animation: wiggle 7s ease-in-out infinite;
+}
 
 
 @keyframes glow {
@@ -688,7 +709,6 @@
      animation: fadeIn 1s ease-out forwards;
  }
 
-
 .animate-blob {
     animation: blob 4s infinite;
 }
@@ -712,7 +732,20 @@
   animation: gradientSlow 15s ease infinite;
 }
 
-
+.dot {
+  transition: transform 0.2s ease-in-out;
+}
+.animate-pulse {
+     animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+     0%, 100% {
+         opacity: 1;
+     }
+     50% {
+         opacity: .5;
+     }
+}
 
 @layer base {
   * {

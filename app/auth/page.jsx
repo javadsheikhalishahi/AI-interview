@@ -4,21 +4,27 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/services/supabaseClient";
 import { LinkedinIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 function Login() {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/dashboard";
 
   const signInWithGoogle = async () => {
+    setLoading(true);
+    const redirectTo = searchParams.get("redirectTo") || "/dashboard";
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`,
       },
     });
   
     if (error) {
       console.error('Error:', error.message);
+      setLoading(false);
     }
   };
   

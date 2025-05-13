@@ -2,18 +2,20 @@
 
 import AnimatedLines from '@/app/component/AnimatedLines.jsx';
 import { supabase } from '@/services/supabaseClient';
-
-import { ArrowRight, Bot, Brain, CalendarDays, CheckCircle, ChevronDown, Clock, Flag, Github, LayoutDashboard, Linkedin, ListChecks, Mail, Menu, MessageSquare, PartyPopper, Play, Plus, Send, Share2, Star, TrendingUp, Trophy, Twitter, Users, X, Zap } from 'lucide-react'; // Added new icons
+import { ArrowRight, Bot, Brain, CalendarDays, Check, CheckCircle, ChevronDown, Clock, Flag, Github, LayoutDashboard, Linkedin, ListChecks, Mail, Menu, MessageSquare, PartyPopper, Play, Plus, Send, Share2, Star, TrendingUp, Trophy, Twitter, Users, X, Zap } from 'lucide-react'; // Added new icons
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+
 
 const Counter = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
   const countRef = useRef(null);
-  
+
+ 
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -171,6 +173,16 @@ const Accordion = ({ title, children }) => {
 
 
 export default function AiInterviewLandingPage() {
+  const router = useRouter();
+
+const handleChoosePlan = (plan) => {
+  if (user) {
+    router.push(`/buy?plan=${plan}`)
+  } else {
+    router.push(`/auth?redirectTo=/buy?plan=${plan}`)
+  }
+}
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const { ref: refStep1, inView: inViewStep1 } = useInView({ triggerOnce: true, threshold: 0.2 });
@@ -505,18 +517,18 @@ export default function AiInterviewLandingPage() {
       </section>
 
 {/*How AIQuestify Works*/}
-      <section id="how-it-works" ref={refStep1} className={`relative z-10 container mx-auto px-6 py-20 md:py-24 lg:py-32 text-center ${inViewStep1 ? 'animate-slideInRight' : 'opacity-0'} `}>
-  <h2 className="text-3xl md:text-4xl font-bold mb-16 text-gray-900 animate-fadeInUp">
+<section id="how-it-works" ref={refStep1} className={`relative z-10 container mx-auto px-6 py-20 md:py-24 lg:py-32 text-center ${inViewStep1 ? 'animate-slideInRight' : 'opacity-0'}`}>
+  <h2 className="text-3xl sm:text-4xl font-bold mb-16 text-gray-900 animate-fadeInUp">
     How AIQuestify Works
   </h2>
   <div className="relative flex flex-col items-center space-y-10">
     <div className="absolute inset-0 w-1 bg-yellow-400 left-1/2 transform -translate-x-1/2"></div>
 
     {/* Step 1 */}
-    <div className="relative flex w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1"> 
-      <div className="w-full md:w-5/12 flex-grow "></div>
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 ">
-        <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full shadow-xl flex items-center justify-center ">
+    <div className="relative flex flex-col md:flex-row w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
+      <div className="w-full md:w-5/12 flex-grow"></div>
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-[-20px] md:top-1/2 md:-translate-y-1/2 z-10">
+        <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full shadow-xl flex items-center justify-center">
           <span className="text-white text-2xl font-bold">1</span>
         </div>
       </div>
@@ -530,19 +542,19 @@ export default function AiInterviewLandingPage() {
         </div>
       </div>
     </div>
-    
+
     {/* Step 2 */}
-    <div className="relative flex w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
+    <div className="relative flex flex-col md:flex-row w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle2">
       <div className="w-full md:w-5/12 flex-grow bg-gray-900 bg-opacity-50 p-8 rounded-xl shadow-2xl border-4 border-gray-800 animate-slideInRight animation-delay-300 transform hover:border-orange-600 transition-transform duration-300">
         <div className="text-center md:text-right">
           <h3 className="text-xl font-semibold mb-3 text-white flex items-center justify-end gap-2">
-            Send Candidate Links
             <Send className='text-orange-600' />
+            Send Candidate Links
           </h3>
           <p className="text-gray-400 font-medium">Generate and share unique links for candidates to take the AI interview anytime.</p>
         </div>
       </div>
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-[-20px] md:top-1/2 md:-translate-y-1/2 z-10">
         <div className="w-14 h-14 bg-gradient-to-br from-pink-600 to-orange-600 rounded-full shadow-lg flex items-center justify-center">
           <span className="text-white text-2xl font-bold">2</span>
         </div>
@@ -551,9 +563,9 @@ export default function AiInterviewLandingPage() {
     </div>
 
     {/* Step 3 */}
-    <div className="relative flex w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
+    <div className="relative flex flex-col md:flex-row w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
       <div className="w-full md:w-5/12 flex-grow"></div>
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-[-20px] md:top-1/2 md:-translate-y-1/2 z-10">
         <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full shadow-xl flex items-center justify-center">
           <span className="text-white text-2xl font-bold">3</span>
         </div>
@@ -572,19 +584,16 @@ export default function AiInterviewLandingPage() {
     </div>
 
     {/* Step 4 */}
-    <div className="relative flex w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
+    <div className="relative flex flex-col md:flex-row w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle2">
       <div className="w-full md:w-5/12 flex-grow bg-gray-900 bg-opacity-50 p-8 rounded-xl shadow-2xl border-4 border-gray-800 animate-slideInRight animation-delay-900 transform hover:border-green-600 transition-transform duration-300">
         <div className="text-center md:text-right">
           <h3 className="text-xl font-semibold mb-3 text-white flex items-center justify-end gap-2">
-            Review Results & Recommendations
-            <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M5 13l4 4L19 7" />
-            </svg>
+            <Check className='text-emerald-500' /> Review Results & Recommendations
           </h3>
           <p className="text-gray-400 font-medium">Access detailed reports, candidate ratings, and AI-driven recommendations.</p>
         </div>
       </div>
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-[-20px] md:top-1/2 md:-translate-y-1/2 z-10">
         <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-teal-600 rounded-full shadow-lg flex items-center justify-center">
           <span className="text-white text-2xl font-bold">4</span>
         </div>
@@ -593,9 +602,9 @@ export default function AiInterviewLandingPage() {
     </div>
 
     {/* Step 5 */}
-    <div className="relative flex w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
+    <div className="relative flex flex-col md:flex-row w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
       <div className="w-full md:w-5/12 flex-grow"></div>
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-[-20px] md:top-1/2 md:-translate-y-1/2 z-10">
         <div className="w-14 h-14 bg-gradient-to-br from-orange-600 to-red-600 rounded-full shadow-xl flex items-center justify-center">
           <span className="text-white text-2xl font-bold">5</span>
         </div>
@@ -610,20 +619,19 @@ export default function AiInterviewLandingPage() {
         </div>
       </div>
     </div>
-     {/* Finish Step */}
-     <div className="relative flex w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle1">
+
+    {/* Finish Step */}
+    <div className="relative flex flex-col md:flex-row w-full max-w-5xl items-center justify-center md:justify-between gap-2 animate-wiggle2">
       <div className="w-full md:w-5/12 flex-grow bg-gray-900 bg-opacity-50 p-8 rounded-xl shadow-2xl border-4 border-gray-800 animate-slideInRight animation-delay-[1500ms] transform hover:border-yellow-500 transition-transform duration-300">
         <div className="text-center md:text-right">
           <h3 className="text-xl font-semibold mb-3 text-white flex items-center justify-end gap-2">
             All Done!
             <Flag className="w-7 h-7 text-yellow-400" />
           </h3>
-          <p className="text-gray-400 font-medium">
-            Sit back, relax, and let AIQuestify help you discover top talent effortlessly.
-          </p>
+          <p className="text-gray-400 font-medium">Sit back, relax, and let AIQuestify help you discover top talent effortlessly.</p>
         </div>
       </div>
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-[-20px] md:top-1/2 md:-translate-y-1/2 z-10">
         <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-full shadow-lg flex items-center justify-center">
           <span className="text-white text-2xl font-bold"><PartyPopper className='w-8 h-8 text-black animate-wiggle'/></span>
         </div>
@@ -640,12 +648,37 @@ export default function AiInterviewLandingPage() {
   </div>
 </section>
 
+
+
        <section id="pricing" ref={refStep4} className={`relative z-10 container mx-auto px-6 py-20 md:py-24 lg:py-32 text-center ${inViewStep4 ? 'animate-slideInRight' : 'opacity-0'}`}>
              <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 animate-fadeUp">
                  Simple & Transparent Pricing
              </h2>
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                 {/* Pricing Card 1: Basic */}
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
+               {/* Pricing Card 1: Starter */}
+             <div className="bg-white bg-opacity-80 p-8 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center animate-slideInLeft animation-delay-300 transform hover:scale-105 transition-transform duration-300">
+                     <h3 className="text-2xl font-bold text-gray-900 mb-4">Starter</h3>
+                     <p className="text-gray-700 text-lg mb-6 font-medium">Free plan for personal use</p>
+                     <div className="text-4xl font-extrabold text-blue-600 mb-6">
+                         $0<span className="text-xl font-medium text-gray-600">/month</span>
+                     </div>
+                     <ul className="text-left text-gray-700 space-y-3 mb-8">
+                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> 10 AI Interviews/month</li>
+                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Basic Analytics</li>
+                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Candidate Link Sharing</li>
+                         <li className="flex items-center text-gray-500"><X size={20} className="text-red-500 mr-2" /> Standard Reporting</li> 
+                         <li className="flex items-center text-gray-500"><X size={20} className="text-red-500 mr-2" /> Live Interview Scheduling</li> 
+                         <li className="flex items-center text-gray-500"><X size={20} className="text-red-500 mr-2" /> Advanced Recommendations</li> 
+                     </ul>
+                     <div className="flex justify-center w-full space-x-4 mt-14">
+                     <Link href="/auth">
+                       <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 text-lg shadow-md transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-semibold cursor-pointer">
+                         Free start
+                       </Button>
+                     </Link>
+                    </div>
+                  </div>
+                 {/* Pricing Card 2: Basic */}
                  <div className="bg-white bg-opacity-80 p-8 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center animate-slideInLeft animation-delay-300 transform hover:scale-105 transition-transform duration-300">
                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Basic</h3>
                      <p className="text-gray-700 text-lg mb-6 font-medium">Perfect for small teams</p>
@@ -653,7 +686,7 @@ export default function AiInterviewLandingPage() {
                          $49<span className="text-xl font-medium text-gray-600">/month</span>
                      </div>
                      <ul className="text-left text-gray-700 space-y-3 mb-8">
-                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> 10 AI Interviews/month</li>
+                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> 100 AI Interviews/month</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Basic AI Rating</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Candidate Link Sharing</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Standard Reporting</li>
@@ -661,10 +694,15 @@ export default function AiInterviewLandingPage() {
                          <li className="flex items-center text-gray-500"><X size={20} className="text-red-500 mr-2" /> Advanced Recommendations</li> 
                      </ul>
                      <div className="flex justify-center w-full space-x-4 mt-14">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 text-lg shadow-md transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-semibold cursor-pointer">Choose Basic</Button>
-            </div>                 </div>
+                     
+                       <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 text-lg shadow-md transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-semibold cursor-pointer" onClick={() => handleChoosePlan('basic')}>
+                         Choose Basic
+                       </Button>
+                     
+                    </div>
+                  </div>
 
-                 {/* Pricing Card 2: Pro (Featured) */}
+                 {/* Pricing Card 3: Pro (Featured) */}
                  <div className="bg-white bg-opacity-80 p-8 rounded-xl shadow-xl border-2 border-blue-600 flex flex-col items-center animate-fadeInUp animation-delay-600 transform hover:scale-105 transition-transform duration-300 relative overflow-hidden"> 
                      <div className="absolute top-0 left-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg">Popular</div>
                      <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-4">Pro</h3> 
@@ -673,18 +711,26 @@ export default function AiInterviewLandingPage() {
                          $99<span className="text-xl font-medium text-gray-600">/month</span>
                      </div>
                      <ul className="text-left text-gray-700 space-y-3 mb-8">
-                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> 50 AI Interviews/month</li>
+                         <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> 200 AI Interviews/month</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Advanced AI Rating</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Candidate Link Sharing</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Detailed Reporting</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Live Interview Scheduling</li>
                          <li className="flex items-center"><CheckCircle size={20} className="text-green-500 mr-2" /> Basic Recommendations</li>
                      </ul>
-                     <div className="flex justify-center w-full space-x-4 mt-10">
-                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full px-8 py-3 text-lg shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 font-semibold cursor-pointer">Choose Pro</Button>
-            </div>                 </div>
+                     <div className="flex justify-center w-full space-x-4 mt-16">
+             
+                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700
+                 hover:to-pink-700 text-white rounded-full px-8 py-3 text-lg shadow-lg transition duration-300
+                  transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50
+                   font-semibold cursor-pointer" onClick={() => handleChoosePlan('pro')}>
+                  Choose Pro
+                </Button>
+              
+              </div> 
+            </div>
 
-                 {/* Pricing Card 3: Enterprise */}
+                 {/* Pricing Card 4: Enterprise */}
                  <div className="bg-white bg-opacity-80 p-8 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center animate-slideInRight animation-delay-900 transform hover:scale-105 transition-transform duration-300">
                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Enterprise</h3>
                      <p className="text-gray-700 text-lg mb-6 font-medium">For large organizations</p>
@@ -702,8 +748,9 @@ export default function AiInterviewLandingPage() {
                      </ul>
                      <div className="flex justify-center w-full space-x-4">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 text-lg shadow-md transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-semibold cursor-pointer">Contact Us</Button>
-            </div>                 </div>
              </div>
+            </div>
+           </div>
          </section>
 
         <section id="testimonials" ref={refStep6} className={`relative z-10 container mx-auto px-6 py-20 md:py-24 lg:py-32 text-center ${inViewStep6 ? 'bounce-in' : 'opacity-0'}`} >
@@ -712,7 +759,7 @@ export default function AiInterviewLandingPage() {
              </h2>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                  {/* Testimonial Card 1 */}
-                 <div className="bg-gray-900 bg-opacity-50 p-6 rounded-lg shadow-lg border-2 border-gray-800 hover:border-blue-600 hover:shadow-2xl animate-fadeUp animation-delay-300 transform hover:scale-105 transition-transform duration-300 flex flex-col items-center cursor-pointer">
+                 <div className="bg-gray-900 bg-opacity-50 p-6 rounded-lg shadow-lg border-2 border-gray-800 hover:border-blue-600 hover:shadow-2xl animate-fadeUp animation-delay-300 transform hover:scale-105 transition-transform duration-300 flex flex-col items-center">
                      <MessageSquare size={40} className="text-cyan-400 mb-4" />
                      <p className="text-gray-400 text-lg mb-4 font-medium">
                          "AIQuestify has revolutionized our initial screening process. We save hours and get better insights."

@@ -79,6 +79,10 @@ export default function CreateCallPage() {
   };
 
   const handleSendEmail = (email, callId) => {
+    if (!email || !callId) {
+      toast.error("Missing email or call ID.");
+      return;
+    }
     const candidate = callList.find((c) => c.userEmail === email);
     if (!candidate) {
       toast.error("Candidate not found.");
@@ -87,7 +91,10 @@ export default function CreateCallPage() {
     setLoadingId(email);
     updateCandidateStatus(email, "Pending");
     
-    const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://your-production-domain.com";
+    const baseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const subject = encodeURIComponent("You're invited to an Interview");
     const body = encodeURIComponent(
       `Hi there,\n\nYou've been invited to an interview at [Your Company Name].\n\n` +
