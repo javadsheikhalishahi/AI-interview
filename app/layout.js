@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "AI interview",
   description: "Automated, AI-powered candidate interviews and instant evaluations.",
+  icons: {
+    icon: "/icon1.png",
+  },
 };
 
 export default function RootLayout({ children }) {
