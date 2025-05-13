@@ -15,6 +15,28 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  
+  useEffect(() => {
+    const hash = window.location.hash;
+
+    if (hash) {
+      const params = new URLSearchParams(hash.substring(1));
+      const access_token = params.get("access_token");
+      const refresh_token = params.get("refresh_token");
+      const expires_in = params.get("expires_in");
+      const token_type = params.get("token_type");
+
+      if (access_token && refresh_token && token_type) {
+        supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        }).then(() => {
+          router.replace(redirectTo); // Clean redirect
+        });
+      }
+    }
+  }, []);
+  
   const signInWithGoogle = async () => {
     setLoading(true);
     // Use the redirectTo obtained from searchParams
