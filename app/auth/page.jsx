@@ -5,33 +5,34 @@ import { supabase } from "@/services/supabaseClient";
 import { LinkedinIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react"; // Import Suspense
 
-function Login() {
+// Create a component that contains the logic and uses useSearchParams
+function LoginForm() {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") || "/dashboard";
 
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const signInWithGoogle = async () => {
     setLoading(true);
-    const redirectTo = searchParams?.get("redirectTo") || "/dashboard";
+    // Use the redirectTo obtained from searchParams
+    const redirectAfterLogin = searchParams?.get("redirectTo") || "/dashboard";
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`,
+        redirectTo: `${window.location.origin}/auth/callback?redirectTo=${redirectAfterLogin}`,
       },
     });
-  
+
     if (error) {
       console.error('Error:', error.message);
       setLoading(false);
     }
   };
-  
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
-  
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-50 via-purple-100 to-pink-100">
       <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-10 shadow-2xl w-full max-w-md animate-slideInRight">
@@ -84,32 +85,39 @@ function Login() {
         </div>
       </div>
       <footer className="text-center text-sm text-gray-600 mt-6 mb-4 flex flex-col items-center gap-2">
-  <div>
-    © 2025{" "}
-    <a
-      href="https://www.linkedin.com/in/javad-sheikhalishahi-60094629b/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="font-medium text-blue-600 hover:underline"
-    >
-      Javad Sheikhalishahi
-    </a>
-    . All rights reserved.
-  </div>
-  <div className="flex gap-3">
-    <a
-      href="https://www.linkedin.com/in/javad-sheikhalishahi-60094629b/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-blue-600 hover:text-blue-800 transition-all hover:scale-110 transform"
-      aria-label="LinkedIn"
-    >
-      <LinkedinIcon size={18} />
-    </a>
-  </div>
-</footer>
+        <div>
+          © 2025{" "}
+          <a
+            href="https://www.linkedin.com/in/javad-sheikhalishahi-60094629b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-blue-600 hover:underline"
+          >
+            Javad Sheikhalishahi
+          </a>
+          . All rights reserved.
+        </div>
+        <div className="flex gap-3">
+          <a
+            href="https://www.linkedin.com/in/javad-sheikhalishahi-60094629b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 transition-all hover:scale-110 transform"
+            aria-label="LinkedIn"
+          >
+            <LinkedinIcon size={18} />
+          </a>
+        </div>
+      </footer>
     </div>
   );
-};
+}
 
-export default Login;
+// Export the default component wrapped in Suspense
+export default function Login() {
+  return (
+    <Suspense fallback={<div>Loading login...</div>}>
+      <LoginForm />
+    </Suspense>
+  );
+}
