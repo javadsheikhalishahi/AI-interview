@@ -13,7 +13,7 @@ function Login() {
 
   const signInWithGoogle = async () => {
     setLoading(true);
-    const redirectTo = searchParams.get("redirectTo") || "/dashboard";
+    const redirectTo = searchParams?.get("redirectTo") || "/dashboard";
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
