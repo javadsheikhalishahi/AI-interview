@@ -19,7 +19,7 @@ function LoginForm() {
     setLoading(true);
     // Use the redirectTo obtained from searchParams
     const redirectAfterLogin = searchParams?.get("redirectTo") || "/dashboard";
-    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL;
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
