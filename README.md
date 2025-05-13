@@ -25,7 +25,7 @@
 ### 🔐 Login with Google
 > Simple and secure Google OAuth login flow powered by Supabase.
 
-![Login](public/Screenshot%2025-05-13%151122.png)
+![Login](public/Screenshot2025-05-13151122.png)
 
 ---
 
