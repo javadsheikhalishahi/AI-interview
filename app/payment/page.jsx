@@ -3,9 +3,9 @@
 import { CheckCircle, Lock, X } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
-export default function PaymentPage() {
+export default function PaymentPageContent() {
   const searchParams = useSearchParams();
   const defaultPlan = searchParams.get("plan") || "basic";
 
@@ -499,5 +499,14 @@ export default function PaymentPage() {
         </div>
       )}
     </main>
+  );
+}
+
+// Export the default component wrapped in Suspense
+export default function PaymentPage() {
+  return (
+      <Suspense fallback={<div>Loading payment options...</div>}>
+          <PaymentPageContent />
+      </Suspense>
   );
 }

@@ -4,8 +4,9 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, CheckCircle, CreditCard, X } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function BuyPage() {
+export default function BuyPageContent() {
   const searchParams = useSearchParams();
   const selectedPlan = searchParams.get("plan") || "basic";
 
@@ -37,6 +38,14 @@ export default function BuyPage() {
   };
 
   const plan = plans[selectedPlan];
+  
+  if (!plan) {
+    return (
+      <div className="text-center text-red-500 mt-20">
+          Invalid plan selected. Please return to the pricing page.
+      </div>
+    );
+}
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white animate-fadeUp">
@@ -138,5 +147,14 @@ export default function BuyPage() {
         </section>
       </div>
     </main>
+  );
+}
+
+// Export the default component wrapped in Suspense
+export default function BuyPage() {
+  return (
+      <Suspense fallback={<div>Loading purchase options...</div>}>
+          <BuyPageContent />
+      </Suspense>
   );
 }
